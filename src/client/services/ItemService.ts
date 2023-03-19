@@ -1,33 +1,33 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-import type { Application } from '../models/Application';
+import type { Item } from '../models/Item';
 
 import type { CancelablePromise } from '../core/CancelablePromise';
 import { OpenAPI } from '../core/OpenAPI';
 import { request as __request } from '../core/request';
 
-export class ApplicationService {
+export class ItemService {
 
     /**
-     * Find application by ID
-     * Returns a single application
-     * @param id ID of Application
-     * @returns Application successful operation
+     * Find Item by ID
+     * Returns a single item
+     * @param id ID of Item
+     * @returns Item successful operation
      * @throws ApiError
      */
-    public static findById(
+    public static findById4(
         id: string,
-    ): CancelablePromise<Application> {
+    ): CancelablePromise<Item> {
         return __request(OpenAPI, {
             method: 'GET',
-            url: '/api/applications/{id}',
+            url: '/api/items/{id}',
             path: {
                 'id': id,
             },
             errors: {
                 400: `Invalid ID supplied`,
-                404: `Application not found`,
+                404: `item not found`,
             },
         });
     }
@@ -35,16 +35,16 @@ export class ApplicationService {
     /**
      * @param id
      * @param requestBody
-     * @returns Application OK
+     * @returns Item OK
      * @throws ApiError
      */
-    public static updateApplication(
+    public static updateItem(
         id: string,
-        requestBody: Application,
-    ): CancelablePromise<Application> {
+        requestBody: Item,
+    ): CancelablePromise<Item> {
         return __request(OpenAPI, {
             method: 'PUT',
-            url: '/api/applications/{id}',
+            url: '/api/items/{id}',
             path: {
                 'id': id,
             },
@@ -62,12 +62,12 @@ export class ApplicationService {
      * @returns string OK
      * @throws ApiError
      */
-    public static deleteApplication(
+    public static deleteItem(
         id: string,
     ): CancelablePromise<string> {
         return __request(OpenAPI, {
             method: 'DELETE',
-            url: '/api/applications/{id}',
+            url: '/api/items/{id}',
             path: {
                 'id': id,
             },
@@ -81,16 +81,16 @@ export class ApplicationService {
     /**
      * @param id
      * @param requestBody
-     * @returns Application OK
+     * @returns Item OK
      * @throws ApiError
      */
-    public static patchApplication(
+    public static patchItem(
         id: string,
-        requestBody: Application,
-    ): CancelablePromise<Application> {
+        requestBody: Item,
+    ): CancelablePromise<Item> {
         return __request(OpenAPI, {
             method: 'PATCH',
-            url: '/api/applications/{id}',
+            url: '/api/items/{id}',
             path: {
                 'id': id,
             },
@@ -104,15 +104,15 @@ export class ApplicationService {
     }
 
     /**
-     * Get Application
-     * Returns a Application collection
-     * @returns Application OK
+     * Get Item
+     * Returns a Item collection
+     * @returns Item OK
      * @throws ApiError
      */
-    public static findApplications(): CancelablePromise<Array<Application>> {
+    public static findItems(): CancelablePromise<Array<Item>> {
         return __request(OpenAPI, {
             method: 'GET',
-            url: '/api/applications/',
+            url: '/api/items/',
             errors: {
                 400: `Bad Request`,
                 404: `Not Found`,
@@ -121,17 +121,17 @@ export class ApplicationService {
     }
 
     /**
-     * Create Application
-     * @param requestBody Created Application object
-     * @returns Application successful operation
+     * Create Item
+     * @param requestBody Created Item object
+     * @returns Item successful operation
      * @throws ApiError
      */
-    public static postApplication(
-        requestBody: Application,
-    ): CancelablePromise<Application> {
+    public static postItem(
+        requestBody: Item,
+    ): CancelablePromise<Item> {
         return __request(OpenAPI, {
             method: 'POST',
-            url: '/api/applications/',
+            url: '/api/items/',
             body: requestBody,
             mediaType: 'application/json',
             errors: {
@@ -142,13 +142,13 @@ export class ApplicationService {
     }
 
     /**
-     * @returns Application OK
+     * @returns Item OK
      * @throws ApiError
      */
-    public static headApplication(): CancelablePromise<Application> {
+    public static headItem(): CancelablePromise<Item> {
         return __request(OpenAPI, {
             method: 'HEAD',
-            url: '/api/applications/',
+            url: '/api/items/',
             errors: {
                 400: `Bad Request`,
                 404: `Not Found`,

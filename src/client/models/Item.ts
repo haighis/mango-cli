@@ -3,21 +3,21 @@
 /* eslint-disable */
 
 /**
- * Application object
+ * Item object
  */
-export type Application = {
+export type Item = {
     /**
-     * Name of the Application.
+     * Name of the Store Item.
      */
-    applicationName: string;
+    name: string;
     /**
-     * Url of the Application.
+     * Description fo the Store Item.
      */
-    applicationUrl: string;
+    description: string;
     /**
      * Installed Instance Code of the Application.
      */
-    installedInstanceCode: string;
+    status: string;
     /**
      * Namespace of the item
      */

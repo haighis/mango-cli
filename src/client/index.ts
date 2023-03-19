@@ -7,11 +7,20 @@ export { OpenAPI } from './core/OpenAPI';
 export type { OpenAPIConfig } from './core/OpenAPI';
 
 export type { Application } from './models/Application';
-export type { ApplicationInstall } from './models/ApplicationInstall';
 export type { ApplicationShell } from './models/ApplicationShell';
-export type { Book } from './models/Book';
+export type { Artifact } from './models/Artifact';
+export type { Install } from './models/Install';
+export type { Item } from './models/Item';
+export type { Kind } from './models/Kind';
+export type { Label } from './models/Label';
+export type { ShellType } from './models/ShellType';
 
 export { ApplicationService } from './services/ApplicationService';
-export { ApplicationInstallService } from './services/ApplicationInstallService';
 export { ApplicationShellService } from './services/ApplicationShellService';
-export { BookService } from './services/BookService';
+export { ArtifactService } from './services/ArtifactService';
+export { InstallService } from './services/InstallService';
+export { ItemService } from './services/ItemService';
+export { KindService } from './services/KindService';
+export { LabelService } from './services/LabelService';
+export { SetupService } from './services/SetupService';
+export { ShellTypeService } from './services/ShellTypeService';
