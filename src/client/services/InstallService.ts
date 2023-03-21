@@ -1,33 +1,33 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-import type { Application } from '../models/Application';
+import type { Install } from '../models/Install';
 
 import type { CancelablePromise } from '../core/CancelablePromise';
 import { OpenAPI } from '../core/OpenAPI';
 import { request as __request } from '../core/request';
 
-export class ApplicationService {
+export class InstallService {
 
     /**
-     * Find application by ID
-     * Returns a single application
-     * @param id ID of Application
-     * @returns Application successful operation
+     * Find Install by ID
+     * Returns a single Install
+     * @param id ID of Install
+     * @returns Install successful operation
      * @throws ApiError
      */
-    public static findById(
+    public static findById3(
         id: string,
-    ): CancelablePromise<Application> {
+    ): CancelablePromise<Install> {
         return __request(OpenAPI, {
             method: 'GET',
-            url: '/api/applications/{id}',
+            url: '/api/installs/{id}',
             path: {
                 'id': id,
             },
             errors: {
                 400: `Invalid ID supplied`,
-                404: `Application not found`,
+                404: `Install not found`,
             },
         });
     }
@@ -35,16 +35,16 @@ export class ApplicationService {
     /**
      * @param id
      * @param requestBody
-     * @returns Application OK
+     * @returns Install OK
      * @throws ApiError
      */
-    public static updateApplication(
+    public static updateApplicationInstall(
         id: string,
-        requestBody: Application,
-    ): CancelablePromise<Application> {
+        requestBody: Install,
+    ): CancelablePromise<Install> {
         return __request(OpenAPI, {
             method: 'PUT',
-            url: '/api/applications/{id}',
+            url: '/api/installs/{id}',
             path: {
                 'id': id,
             },
@@ -62,12 +62,12 @@ export class ApplicationService {
      * @returns string OK
      * @throws ApiError
      */
-    public static deleteApplication(
+    public static deleteApplicationInstall(
         id: string,
     ): CancelablePromise<string> {
         return __request(OpenAPI, {
             method: 'DELETE',
-            url: '/api/applications/{id}',
+            url: '/api/installs/{id}',
             path: {
                 'id': id,
             },
@@ -81,16 +81,16 @@ export class ApplicationService {
     /**
      * @param id
      * @param requestBody
-     * @returns Application OK
+     * @returns Install OK
      * @throws ApiError
      */
-    public static patchApplication(
+    public static patchApplicationInstall(
         id: string,
-        requestBody: Application,
-    ): CancelablePromise<Application> {
+        requestBody: Install,
+    ): CancelablePromise<Install> {
         return __request(OpenAPI, {
             method: 'PATCH',
-            url: '/api/applications/{id}',
+            url: '/api/installs/{id}',
             path: {
                 'id': id,
             },
@@ -104,15 +104,15 @@ export class ApplicationService {
     }
 
     /**
-     * Get Application
-     * Returns a Application collection
-     * @returns Application OK
+     * Get Install
+     * Returns a Install collection
+     * @returns Install OK
      * @throws ApiError
      */
-    public static findApplications(): CancelablePromise<Array<Application>> {
+    public static findApplicationInstalls(): CancelablePromise<Array<Install>> {
         return __request(OpenAPI, {
             method: 'GET',
-            url: '/api/applications/',
+            url: '/api/installs/',
             errors: {
                 400: `Bad Request`,
                 404: `Not Found`,
@@ -121,17 +121,17 @@ export class ApplicationService {
     }
 
     /**
-     * Create Application
-     * @param requestBody Created Application object
-     * @returns Application successful operation
+     * Create Install
+     * @param requestBody Created Install object
+     * @returns Install successful operation
      * @throws ApiError
      */
-    public static postApplication(
-        requestBody: Application,
-    ): CancelablePromise<Application> {
+    public static postApplicationInstall(
+        requestBody: Install,
+    ): CancelablePromise<Install> {
         return __request(OpenAPI, {
             method: 'POST',
-            url: '/api/applications/',
+            url: '/api/installs/',
             body: requestBody,
             mediaType: 'application/json',
             errors: {
@@ -142,13 +142,13 @@ export class ApplicationService {
     }
 
     /**
-     * @returns Application OK
+     * @returns Install OK
      * @throws ApiError
      */
-    public static headApplication(): CancelablePromise<Application> {
+    public static headApplicationInstall(): CancelablePromise<Install> {
         return __request(OpenAPI, {
             method: 'HEAD',
-            url: '/api/applications/',
+            url: '/api/installs/',
             errors: {
                 400: `Bad Request`,
                 404: `Not Found`,

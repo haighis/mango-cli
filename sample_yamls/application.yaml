@@ -1,0 +1,6 @@
+---
+kind: Application
+applicationName: test1
+applicationUrl: http://mango/app/tst.js
+installedInstanceCode: Q@#@#
+namespace: system

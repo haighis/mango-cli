@@ -1,0 +1,20 @@
+---
+kind: Application
+applicationName: test1
+applicationUrl: http://mango/app/tst.js
+installedInstanceCode: Q@#@#
+namespace: system
+---
+kind: Application
+applicationName: test2
+applicationUrl: http://mango/app/tst.js
+installedInstanceCode: Q@#@#
+namespace: system
+---
+kind: Application_shell
+applicationShellName: test2
+applicationShellType: 
+    classification: Frontend
+    subClassification: Web
+installedInstanceCode: Q@#@#
+namespace: system

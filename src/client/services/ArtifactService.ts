@@ -1,33 +1,33 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-import type { Application } from '../models/Application';
+import type { Artifact } from '../models/Artifact';
 
 import type { CancelablePromise } from '../core/CancelablePromise';
 import { OpenAPI } from '../core/OpenAPI';
 import { request as __request } from '../core/request';
 
-export class ApplicationService {
+export class ArtifactService {
 
     /**
-     * Find application by ID
-     * Returns a single application
-     * @param id ID of Application
-     * @returns Application successful operation
+     * Find Artifact by ID
+     * Returns a single artifact
+     * @param id ID of Artifact
+     * @returns Artifact successful operation
      * @throws ApiError
      */
-    public static findById(
+    public static findById2(
         id: string,
-    ): CancelablePromise<Application> {
+    ): CancelablePromise<Artifact> {
         return __request(OpenAPI, {
             method: 'GET',
-            url: '/api/applications/{id}',
+            url: '/api/artifacts/{id}',
             path: {
                 'id': id,
             },
             errors: {
                 400: `Invalid ID supplied`,
-                404: `Application not found`,
+                404: `artifact not found`,
             },
         });
     }
@@ -35,16 +35,16 @@ export class ApplicationService {
     /**
      * @param id
      * @param requestBody
-     * @returns Application OK
+     * @returns Artifact OK
      * @throws ApiError
      */
-    public static updateApplication(
+    public static updateArtifact(
         id: string,
-        requestBody: Application,
-    ): CancelablePromise<Application> {
+        requestBody: Artifact,
+    ): CancelablePromise<Artifact> {
         return __request(OpenAPI, {
             method: 'PUT',
-            url: '/api/applications/{id}',
+            url: '/api/artifacts/{id}',
             path: {
                 'id': id,
             },
@@ -62,12 +62,12 @@ export class ApplicationService {
      * @returns string OK
      * @throws ApiError
      */
-    public static deleteApplication(
+    public static deleteArtifact(
         id: string,
     ): CancelablePromise<string> {
         return __request(OpenAPI, {
             method: 'DELETE',
-            url: '/api/applications/{id}',
+            url: '/api/artifacts/{id}',
             path: {
                 'id': id,
             },
@@ -81,16 +81,16 @@ export class ApplicationService {
     /**
      * @param id
      * @param requestBody
-     * @returns Application OK
+     * @returns Artifact OK
      * @throws ApiError
      */
-    public static patchApplication(
+    public static patchArtifact(
         id: string,
-        requestBody: Application,
-    ): CancelablePromise<Application> {
+        requestBody: Artifact,
+    ): CancelablePromise<Artifact> {
         return __request(OpenAPI, {
             method: 'PATCH',
-            url: '/api/applications/{id}',
+            url: '/api/artifacts/{id}',
             path: {
                 'id': id,
             },
@@ -104,15 +104,15 @@ export class ApplicationService {
     }
 
     /**
-     * Get Application
-     * Returns a Application collection
-     * @returns Application OK
+     * Get Artifact
+     * Returns a Artifact collection
+     * @returns Artifact OK
      * @throws ApiError
      */
-    public static findApplications(): CancelablePromise<Array<Application>> {
+    public static findArtifacts(): CancelablePromise<Array<Artifact>> {
         return __request(OpenAPI, {
             method: 'GET',
-            url: '/api/applications/',
+            url: '/api/artifacts/',
             errors: {
                 400: `Bad Request`,
                 404: `Not Found`,
@@ -121,17 +121,17 @@ export class ApplicationService {
     }
 
     /**
-     * Create Application
-     * @param requestBody Created Application object
-     * @returns Application successful operation
+     * Create Artifact
+     * @param requestBody Created Artifact object
+     * @returns Artifact successful operation
      * @throws ApiError
      */
-    public static postApplication(
-        requestBody: Application,
-    ): CancelablePromise<Application> {
+    public static postArtifact(
+        requestBody: Artifact,
+    ): CancelablePromise<Artifact> {
         return __request(OpenAPI, {
             method: 'POST',
-            url: '/api/applications/',
+            url: '/api/artifacts/',
             body: requestBody,
             mediaType: 'application/json',
             errors: {
@@ -142,13 +142,13 @@ export class ApplicationService {
     }
 
     /**
-     * @returns Application OK
+     * @returns Artifact OK
      * @throws ApiError
      */
-    public static headApplication(): CancelablePromise<Application> {
+    public static headArtifact(): CancelablePromise<Artifact> {
         return __request(OpenAPI, {
             method: 'HEAD',
-            url: '/api/applications/',
+            url: '/api/artifacts/',
             errors: {
                 400: `Bad Request`,
                 404: `Not Found`,

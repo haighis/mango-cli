@@ -1,5 +1,4 @@
 import {Args, Command, Flags} from '@oclif/core'
-
 export default class Hello extends Command {
   static description = 'Say hello'
 

@@ -1,33 +1,33 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-import type { Application } from '../models/Application';
+import type { Kind } from '../models/Kind';
 
 import type { CancelablePromise } from '../core/CancelablePromise';
 import { OpenAPI } from '../core/OpenAPI';
 import { request as __request } from '../core/request';
 
-export class ApplicationService {
+export class KindService {
 
     /**
-     * Find application by ID
-     * Returns a single application
-     * @param id ID of Application
-     * @returns Application successful operation
+     * Find Kind by ID
+     * Returns a single kind
+     * @param id ID of Kind
+     * @returns Kind successful operation
      * @throws ApiError
      */
-    public static findById(
+    public static findById5(
         id: string,
-    ): CancelablePromise<Application> {
+    ): CancelablePromise<Kind> {
         return __request(OpenAPI, {
             method: 'GET',
-            url: '/api/applications/{id}',
+            url: '/api/kinds/{id}',
             path: {
                 'id': id,
             },
             errors: {
                 400: `Invalid ID supplied`,
-                404: `Application not found`,
+                404: `kind not found`,
             },
         });
     }
@@ -35,16 +35,16 @@ export class ApplicationService {
     /**
      * @param id
      * @param requestBody
-     * @returns Application OK
+     * @returns Kind OK
      * @throws ApiError
      */
-    public static updateApplication(
+    public static updateKind(
         id: string,
-        requestBody: Application,
-    ): CancelablePromise<Application> {
+        requestBody: Kind,
+    ): CancelablePromise<Kind> {
         return __request(OpenAPI, {
             method: 'PUT',
-            url: '/api/applications/{id}',
+            url: '/api/kinds/{id}',
             path: {
                 'id': id,
             },
@@ -62,12 +62,12 @@ export class ApplicationService {
      * @returns string OK
      * @throws ApiError
      */
-    public static deleteApplication(
+    public static deleteKind(
         id: string,
     ): CancelablePromise<string> {
         return __request(OpenAPI, {
             method: 'DELETE',
-            url: '/api/applications/{id}',
+            url: '/api/kinds/{id}',
             path: {
                 'id': id,
             },
@@ -81,16 +81,16 @@ export class ApplicationService {
     /**
      * @param id
      * @param requestBody
-     * @returns Application OK
+     * @returns Kind OK
      * @throws ApiError
      */
-    public static patchApplication(
+    public static patchKind(
         id: string,
-        requestBody: Application,
-    ): CancelablePromise<Application> {
+        requestBody: Kind,
+    ): CancelablePromise<Kind> {
         return __request(OpenAPI, {
             method: 'PATCH',
-            url: '/api/applications/{id}',
+            url: '/api/kinds/{id}',
             path: {
                 'id': id,
             },
@@ -104,15 +104,15 @@ export class ApplicationService {
     }
 
     /**
-     * Get Application
-     * Returns a Application collection
-     * @returns Application OK
+     * Get Kind
+     * Returns a Kind collection
+     * @returns Kind OK
      * @throws ApiError
      */
-    public static findApplications(): CancelablePromise<Array<Application>> {
+    public static findKinds(): CancelablePromise<Array<Kind>> {
         return __request(OpenAPI, {
             method: 'GET',
-            url: '/api/applications/',
+            url: '/api/kinds/',
             errors: {
                 400: `Bad Request`,
                 404: `Not Found`,
@@ -121,17 +121,17 @@ export class ApplicationService {
     }
 
     /**
-     * Create Application
-     * @param requestBody Created Application object
-     * @returns Application successful operation
+     * Create Kind
+     * @param requestBody Created Kind object
+     * @returns Kind successful operation
      * @throws ApiError
      */
-    public static postApplication(
-        requestBody: Application,
-    ): CancelablePromise<Application> {
+    public static postKind(
+        requestBody: Kind,
+    ): CancelablePromise<Kind> {
         return __request(OpenAPI, {
             method: 'POST',
-            url: '/api/applications/',
+            url: '/api/kinds/',
             body: requestBody,
             mediaType: 'application/json',
             errors: {
@@ -142,13 +142,13 @@ export class ApplicationService {
     }
 
     /**
-     * @returns Application OK
+     * @returns Kind OK
      * @throws ApiError
      */
-    public static headApplication(): CancelablePromise<Application> {
+    public static headKind(): CancelablePromise<Kind> {
         return __request(OpenAPI, {
             method: 'HEAD',
-            url: '/api/applications/',
+            url: '/api/kinds/',
             errors: {
                 400: `Bad Request`,
                 404: `Not Found`,
