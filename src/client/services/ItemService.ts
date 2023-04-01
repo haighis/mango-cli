@@ -1,7 +1,9 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
+import type { Artifact } from '../models/Artifact';
 import type { Item } from '../models/Item';
+import type { ItemDto } from '../models/ItemDto';
 
 import type { CancelablePromise } from '../core/CancelablePromise';
 import { OpenAPI } from '../core/OpenAPI';
@@ -149,6 +151,32 @@ export class ItemService {
         return __request(OpenAPI, {
             method: 'HEAD',
             url: '/api/items/',
+            errors: {
+                400: `Bad Request`,
+                404: `Not Found`,
+            },
+        });
+    }
+
+    /**
+     * Create Artifact for Item
+     * @param orderId
+     * @param requestBody Created Item object
+     * @returns Artifact successful operation
+     * @throws ApiError
+     */
+    public static addArtifactForItem(
+        orderId: string,
+        requestBody: ItemDto,
+    ): CancelablePromise<Artifact> {
+        return __request(OpenAPI, {
+            method: 'POST',
+            url: '/api/items/{orderId}/artifact',
+            path: {
+                'orderId': orderId,
+            },
+            body: requestBody,
+            mediaType: 'application/json',
             errors: {
                 400: `Bad Request`,
                 404: `Not Found`,

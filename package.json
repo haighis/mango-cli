@@ -23,6 +23,7 @@
     "axios": "^1.3.4",
     "form-data": "^4.0.0",
     "js-yaml": "^4.1.0",
+    "mangoapiserver_client_sdk_typescript": "github:haighis/mangoapiserver_client_sdk_typescript",
     "openapi-typescript-codegen": "^0.23.0"
   },
   "devDependencies": {
@@ -65,7 +66,7 @@
     "prepack": "yarn build && oclif manifest && oclif readme",
     "test": "mocha --forbid-only \"test/**/*.test.ts\"",
     "version": "oclif readme && git add README.md",
-    "generate-client": "openapi --input http://localhost:7878/v3/api-docs --output ./src/test/client --client axios"
+    "generate-client": "openapi --input http://localhost:7878/v3/api-docs --output ./src/client --client axios"
   },
   "engines": {
     "node": ">=12.0.0"

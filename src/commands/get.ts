@@ -1,5 +1,12 @@
 import {Args, Command, Flags, ux} from '@oclif/core'
-import { Application, ApplicationService, ApplicationShell, ApplicationShellService, Install, InstallService, Kind, KindService } from '../client'
+import { Application, 
+  ApplicationService, 
+  ApplicationShell, 
+  ApplicationShellService, 
+  Install, 
+  InstallService, 
+  Kind, 
+  KindService } from '../client/index'
 
 //import {ApplicationInstallApi} from 'apps-js-client/apps'
 //import { Application, Install, ApplicationService, ApplicationShell, ApplicationShellService, CancelablePromise, Kind, KindService } from '../client'
@@ -53,7 +60,6 @@ export default class Get extends Command {
     if (kind) {
       switch(kind) {
         case "Application":
-          // TODO
           // only show active applications
           // user can pass --all to show all
           apiServerResult = await ApplicationService.findApplications() as Application[];
@@ -73,7 +79,9 @@ export default class Get extends Command {
       }
       ux.table(apiServerResult, uiTableColumns)
       //console.log(response2)
-      //this.log(`you input --get: ${args.getArgs}`)
+      if(apiServerResult.length == 0) {
+        this.log(`No entries`);  
+      }
     }
   }
 }

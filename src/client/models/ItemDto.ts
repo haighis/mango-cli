@@ -2,17 +2,15 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import type { Artifact } from './Artifact';
-
 /**
- * Item object
+ * Item Dto object
  */
-export type Item = {
-    id?: string;
+export type ItemDto = {
     name?: string;
     description?: string;
     status?: string;
+    url?: string;
+    version?: string;
     namespace?: string;
-    artifacts?: Array<Artifact>;
 };
 
