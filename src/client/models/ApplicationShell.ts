@@ -2,8 +2,6 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import type { ShellType } from './ShellType';
-
 /**
  * Application Shell object
  */
@@ -16,10 +14,9 @@ export type ApplicationShell = {
      * Installed Instance Code of the Application Shell.
      */
     installedInstanceCode: string;
-    applicationShellType: ShellType;
     /**
-     * Namespace of the item
+     * shellTypeId of the item
      */
-    namespace: string;
+    shellTypeId: string;
 };
 

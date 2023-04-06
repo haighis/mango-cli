@@ -7,16 +7,17 @@
  */
 export type Label = {
     /**
-     * Name of the Store Item.
+     * Name of Label.
      */
     name: string;
     /**
-     * Kind of the item
+     * Kind of Label.
      */
     kind: string;
     /**
-     * Namespace of the item
+     * Namespace of Label.
      */
     namespace: string;
+    createdOn?: string;
 };
 

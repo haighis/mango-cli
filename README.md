@@ -17,11 +17,14 @@ which allows you to view the JS Client Model and Services.
 
 ## Supplying Commands
 
-`./bin/run get application` 
-`./bin/run create application --file application.yaml`
+`./bin/run get Application` 
+`./bin/run create Application --file application.yaml`
 
 ## Supplying Flags
-`./bin/run create application --file application.yaml`
+`./bin/run create Application --file application.yaml`
+
+## Create Application Shell
+./bin/run create ApplicationShell -f sample_yamls/application_shell.yaml
 
 # TODO
 - cli create application_shell command with code generation for angular using a basic foundation that is the default foundation in mango that allows an application shell to load a single application.
@@ -34,6 +37,8 @@ which allows you to view the JS Client Model and Services.
 - use pupeteer to open a browser and ask the user to login
 
 <!-- toc -->
+* [Mango CLI](#mango-cli)
+* [TODO](#todo)
 * [Usage](#usage)
 * [Commands](#commands)
 <!-- tocstop -->
@@ -41,38 +46,124 @@ which allows you to view the JS Client Model and Services.
 <!-- usage -->
 ```sh-session
 $ npm install -g mango-cli
-$ mango-cli COMMAND
+$ mongo-cli COMMAND
 running command...
-$ mango-cli (--version)
+$ mongo-cli (--version)
 mango-cli/0.0.0 darwin-x64 node-v16.13.0
-$ mango-cli --help [COMMAND]
+$ mongo-cli --help [COMMAND]
 USAGE
-  $ mango-cli COMMAND
+  $ mongo-cli COMMAND
 ...
 ```
 <!-- usagestop -->
 # Commands
 <!-- commands -->
-* [`mango-cli hello PERSON`](#mango-cli-hello-person)
-* [`mango-cli hello world`](#mango-cli-hello-world)
-* [`mango-cli help [COMMANDS]`](#mango-cli-help-commands)
-* [`mango-cli plugins`](#mango-cli-plugins)
-* [`mango-cli plugins:install PLUGIN...`](#mango-cli-pluginsinstall-plugin)
-* [`mango-cli plugins:inspect PLUGIN...`](#mango-cli-pluginsinspect-plugin)
-* [`mango-cli plugins:install PLUGIN...`](#mango-cli-pluginsinstall-plugin-1)
-* [`mango-cli plugins:link PLUGIN`](#mango-cli-pluginslink-plugin)
-* [`mango-cli plugins:uninstall PLUGIN...`](#mango-cli-pluginsuninstall-plugin)
-* [`mango-cli plugins:uninstall PLUGIN...`](#mango-cli-pluginsuninstall-plugin-1)
-* [`mango-cli plugins:uninstall PLUGIN...`](#mango-cli-pluginsuninstall-plugin-2)
-* [`mango-cli plugins update`](#mango-cli-plugins-update)
+* [`mongo-cli configure [FILE]`](#mongo-cli-configure-file)
+* [`mongo-cli create [KIND]`](#mongo-cli-create-kind)
+* [`mongo-cli get [KIND]`](#mongo-cli-get-kind)
+* [`mongo-cli hello PERSON`](#mongo-cli-hello-person)
+* [`mongo-cli hello world`](#mongo-cli-hello-world)
+* [`mongo-cli help [COMMANDS]`](#mongo-cli-help-commands)
+* [`mongo-cli plugins`](#mongo-cli-plugins)
+* [`mongo-cli plugins:install PLUGIN...`](#mongo-cli-pluginsinstall-plugin)
+* [`mongo-cli plugins:inspect PLUGIN...`](#mongo-cli-pluginsinspect-plugin)
+* [`mongo-cli plugins:install PLUGIN...`](#mongo-cli-pluginsinstall-plugin-1)
+* [`mongo-cli plugins:link PLUGIN`](#mongo-cli-pluginslink-plugin)
+* [`mongo-cli plugins:uninstall PLUGIN...`](#mongo-cli-pluginsuninstall-plugin)
+* [`mongo-cli plugins:uninstall PLUGIN...`](#mongo-cli-pluginsuninstall-plugin-1)
+* [`mongo-cli plugins:uninstall PLUGIN...`](#mongo-cli-pluginsuninstall-plugin-2)
+* [`mongo-cli plugins update`](#mongo-cli-plugins-update)
 
-## `mango-cli hello PERSON`
+## `mongo-cli configure [FILE]`
+
+Configure Mango Platform Settings
+
+```
+USAGE
+  $ mongo-cli configure [FILE] [--setup]
+
+ARGUMENTS
+  FILE  file to read
+
+FLAGS
+  --setup  Mango System-Initial-Setup
+
+DESCRIPTION
+  Configure Mango Platform Settings
+
+EXAMPLES
+  $ mongo-cli configure
+```
+
+_See code: [dist/commands/configure.ts](https://github.com/haighis/mango-cli/blob/v0.0.0/dist/commands/configure.ts)_
+
+## `mongo-cli create [KIND]`
+
+Create a resource from a file or from stdin.
+
+```
+USAGE
+  $ mongo-cli create [KIND] [-f <value>]
+
+ARGUMENTS
+  KIND  create
+
+FLAGS
+  -f, --file=<value>  file to read
+
+DESCRIPTION
+  Create a resource from a file or from stdin.
+
+EXAMPLES
+  $ mongo-cli create -f path/file.yaml
+```
+
+_See code: [dist/commands/create.ts](https://github.com/haighis/mango-cli/blob/v0.0.0/dist/commands/create.ts)_
+
+## `mongo-cli get [KIND]`
+
+Display one or many resources
+
+```
+USAGE
+  $ mongo-cli get [KIND] [--json] [-n <value>] [-f] [--columns <value> | -x] [--sort <value>] [--filter
+    <value>] [--output csv|json|yaml |  | [--csv | --no-truncate]] [--no-header | ]
+
+ARGUMENTS
+  KIND  get
+
+FLAGS
+  -f, --force
+  -n, --name=<value>  kind to print
+  -x, --extended      show extra columns
+  --columns=<value>   only show provided columns (comma-separated)
+  --csv               output is csv format [alias: --output=csv]
+  --filter=<value>    filter property by partial string matching, ex: name=foo
+  --no-header         hide table header from output
+  --no-truncate       do not truncate output to fit screen
+  --output=<option>   output in a more machine friendly format
+                      <options: csv|json|yaml>
+  --sort=<value>      property to sort by (prepend '-' for descending)
+
+GLOBAL FLAGS
+  --json  Format output as json.
+
+DESCRIPTION
+  Display one or many resources
+
+EXAMPLES
+  $ mongo get applications
+```
+
+_See code: [dist/commands/get.ts](https://github.com/haighis/mango-cli/blob/v0.0.0/dist/commands/get.ts)_
+
+## `mongo-cli hello PERSON`
 
 Say hello
 
 ```
 USAGE
-  $ mango-cli hello PERSON -f <value>
+  $ mongo-cli hello PERSON -f <value>
 
 ARGUMENTS
   PERSON  Person to say hello to
@@ -90,29 +181,29 @@ EXAMPLES
 
 _See code: [dist/commands/hello/index.ts](https://github.com/haighis/mango-cli/blob/v0.0.0/dist/commands/hello/index.ts)_
 
-## `mango-cli hello world`
+## `mongo-cli hello world`
 
 Say hello world
 
 ```
 USAGE
-  $ mango-cli hello world
+  $ mongo-cli hello world
 
 DESCRIPTION
   Say hello world
 
 EXAMPLES
-  $ mango-cli hello world
+  $ mongo-cli hello world
   hello world! (./src/commands/hello/world.ts)
 ```
 
-## `mango-cli help [COMMANDS]`
+## `mongo-cli help [COMMANDS]`
 
-Display help for mango-cli.
+Display help for mongo-cli.
 
 ```
 USAGE
-  $ mango-cli help [COMMANDS] [-n]
+  $ mongo-cli help [COMMANDS] [-n]
 
 ARGUMENTS
   COMMANDS  Command to show help for.
@@ -121,18 +212,18 @@ FLAGS
   -n, --nested-commands  Include all nested commands in the output.
 
 DESCRIPTION
-  Display help for mango-cli.
+  Display help for mongo-cli.
 ```
 
-_See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v5.2.7/src/commands/help.ts)_
+_See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v5.2.8/src/commands/help.ts)_
 
-## `mango-cli plugins`
+## `mongo-cli plugins`
 
 List installed plugins.
 
 ```
 USAGE
-  $ mango-cli plugins [--core]
+  $ mongo-cli plugins [--core]
 
 FLAGS
   --core  Show core plugins.
@@ -141,18 +232,18 @@ DESCRIPTION
   List installed plugins.
 
 EXAMPLES
-  $ mango-cli plugins
+  $ mongo-cli plugins
 ```
 
-_See code: [@oclif/plugin-plugins](https://github.com/oclif/plugin-plugins/blob/v2.4.0/src/commands/plugins/index.ts)_
+_See code: [@oclif/plugin-plugins](https://github.com/oclif/plugin-plugins/blob/v2.4.3/src/commands/plugins/index.ts)_
 
-## `mango-cli plugins:install PLUGIN...`
+## `mongo-cli plugins:install PLUGIN...`
 
 Installs a plugin into the CLI.
 
 ```
 USAGE
-  $ mango-cli plugins:install PLUGIN...
+  $ mongo-cli plugins:install PLUGIN...
 
 ARGUMENTS
   PLUGIN  Plugin to install.
@@ -174,23 +265,23 @@ DESCRIPTION
 
 
 ALIASES
-  $ mango-cli plugins add
+  $ mongo-cli plugins add
 
 EXAMPLES
-  $ mango-cli plugins:install myplugin 
+  $ mongo-cli plugins:install myplugin 
 
-  $ mango-cli plugins:install https://github.com/someuser/someplugin
+  $ mongo-cli plugins:install https://github.com/someuser/someplugin
 
-  $ mango-cli plugins:install someuser/someplugin
+  $ mongo-cli plugins:install someuser/someplugin
 ```
 
-## `mango-cli plugins:inspect PLUGIN...`
+## `mongo-cli plugins:inspect PLUGIN...`
 
 Displays installation properties of a plugin.
 
 ```
 USAGE
-  $ mango-cli plugins:inspect PLUGIN...
+  $ mongo-cli plugins:inspect PLUGIN...
 
 ARGUMENTS
   PLUGIN  [default: .] Plugin to inspect.
@@ -206,16 +297,16 @@ DESCRIPTION
   Displays installation properties of a plugin.
 
 EXAMPLES
-  $ mango-cli plugins:inspect myplugin
+  $ mongo-cli plugins:inspect myplugin
 ```
 
-## `mango-cli plugins:install PLUGIN...`
+## `mongo-cli plugins:install PLUGIN...`
 
 Installs a plugin into the CLI.
 
 ```
 USAGE
-  $ mango-cli plugins:install PLUGIN...
+  $ mongo-cli plugins:install PLUGIN...
 
 ARGUMENTS
   PLUGIN  Plugin to install.
@@ -237,23 +328,23 @@ DESCRIPTION
 
 
 ALIASES
-  $ mango-cli plugins add
+  $ mongo-cli plugins add
 
 EXAMPLES
-  $ mango-cli plugins:install myplugin 
+  $ mongo-cli plugins:install myplugin 
 
-  $ mango-cli plugins:install https://github.com/someuser/someplugin
+  $ mongo-cli plugins:install https://github.com/someuser/someplugin
 
-  $ mango-cli plugins:install someuser/someplugin
+  $ mongo-cli plugins:install someuser/someplugin
 ```
 
-## `mango-cli plugins:link PLUGIN`
+## `mongo-cli plugins:link PLUGIN`
 
 Links a plugin into the CLI for development.
 
 ```
 USAGE
-  $ mango-cli plugins:link PLUGIN
+  $ mongo-cli plugins:link PLUGIN
 
 ARGUMENTS
   PATH  [default: .] path to plugin
@@ -271,16 +362,16 @@ DESCRIPTION
 
 
 EXAMPLES
-  $ mango-cli plugins:link myplugin
+  $ mongo-cli plugins:link myplugin
 ```
 
-## `mango-cli plugins:uninstall PLUGIN...`
+## `mongo-cli plugins:uninstall PLUGIN...`
 
 Removes a plugin from the CLI.
 
 ```
 USAGE
-  $ mango-cli plugins:uninstall PLUGIN...
+  $ mongo-cli plugins:uninstall PLUGIN...
 
 ARGUMENTS
   PLUGIN  plugin to uninstall
@@ -293,17 +384,17 @@ DESCRIPTION
   Removes a plugin from the CLI.
 
 ALIASES
-  $ mango-cli plugins unlink
-  $ mango-cli plugins remove
+  $ mongo-cli plugins unlink
+  $ mongo-cli plugins remove
 ```
 
-## `mango-cli plugins:uninstall PLUGIN...`
+## `mongo-cli plugins:uninstall PLUGIN...`
 
 Removes a plugin from the CLI.
 
 ```
 USAGE
-  $ mango-cli plugins:uninstall PLUGIN...
+  $ mongo-cli plugins:uninstall PLUGIN...
 
 ARGUMENTS
   PLUGIN  plugin to uninstall
@@ -316,17 +407,17 @@ DESCRIPTION
   Removes a plugin from the CLI.
 
 ALIASES
-  $ mango-cli plugins unlink
-  $ mango-cli plugins remove
+  $ mongo-cli plugins unlink
+  $ mongo-cli plugins remove
 ```
 
-## `mango-cli plugins:uninstall PLUGIN...`
+## `mongo-cli plugins:uninstall PLUGIN...`
 
 Removes a plugin from the CLI.
 
 ```
 USAGE
-  $ mango-cli plugins:uninstall PLUGIN...
+  $ mongo-cli plugins:uninstall PLUGIN...
 
 ARGUMENTS
   PLUGIN  plugin to uninstall
@@ -339,17 +430,17 @@ DESCRIPTION
   Removes a plugin from the CLI.
 
 ALIASES
-  $ mango-cli plugins unlink
-  $ mango-cli plugins remove
+  $ mongo-cli plugins unlink
+  $ mongo-cli plugins remove
 ```
 
-## `mango-cli plugins update`
+## `mongo-cli plugins update`
 
 Update installed plugins.
 
 ```
 USAGE
-  $ mango-cli plugins update [-h] [-v]
+  $ mongo-cli plugins update [-h] [-v]
 
 FLAGS
   -h, --help     Show CLI help.

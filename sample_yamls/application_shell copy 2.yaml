@@ -1,0 +1,6 @@
+---
+kind: ApplicationShell
+applicationShellName: John DDD John Pete's # Name for Application Shell
+shellTypeId: eba0635e-fff7-41e8-b008-099a0902d067 # Shell Type
+applicationShellTypeId: eba0635e-fff7-41e8-b008-099a0902d067 # Shell Type
+namespace: default

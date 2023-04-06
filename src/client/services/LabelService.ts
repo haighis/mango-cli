@@ -10,6 +10,59 @@ import { request as __request } from '../core/request';
 export class LabelService {
 
     /**
+     * Get Label
+     * Returns a Label collection
+     * @returns Label OK
+     * @throws ApiError
+     */
+    public static findLabels(): CancelablePromise<Array<Label>> {
+        return __request(OpenAPI, {
+            method: 'GET',
+            url: '/api/labels/',
+            errors: {
+                400: `Bad Request`,
+                404: `Not Found`,
+            },
+        });
+    }
+
+    /**
+     * Create Label
+     * @param requestBody Created Label object
+     * @returns Label successful operation
+     * @throws ApiError
+     */
+    public static postLabel(
+        requestBody: Label,
+    ): CancelablePromise<Label> {
+        return __request(OpenAPI, {
+            method: 'POST',
+            url: '/api/labels/',
+            body: requestBody,
+            mediaType: 'application/json',
+            errors: {
+                400: `Bad Request`,
+                404: `Not Found`,
+            },
+        });
+    }
+
+    /**
+     * @returns Label OK
+     * @throws ApiError
+     */
+    public static headLabel(): CancelablePromise<Label> {
+        return __request(OpenAPI, {
+            method: 'HEAD',
+            url: '/api/labels/',
+            errors: {
+                400: `Bad Request`,
+                404: `Not Found`,
+            },
+        });
+    }
+
+    /**
      * Find label by ID
      * Returns a single label
      * @param id ID of Label
@@ -96,59 +149,6 @@ export class LabelService {
             },
             body: requestBody,
             mediaType: 'application/json',
-            errors: {
-                400: `Bad Request`,
-                404: `Not Found`,
-            },
-        });
-    }
-
-    /**
-     * Get Label
-     * Returns a Label collection
-     * @returns Label OK
-     * @throws ApiError
-     */
-    public static findLabels(): CancelablePromise<Array<Label>> {
-        return __request(OpenAPI, {
-            method: 'GET',
-            url: '/api/labels/',
-            errors: {
-                400: `Bad Request`,
-                404: `Not Found`,
-            },
-        });
-    }
-
-    /**
-     * Create Label
-     * @param requestBody Created Label object
-     * @returns Label successful operation
-     * @throws ApiError
-     */
-    public static postLabel(
-        requestBody: Label,
-    ): CancelablePromise<Label> {
-        return __request(OpenAPI, {
-            method: 'POST',
-            url: '/api/labels/',
-            body: requestBody,
-            mediaType: 'application/json',
-            errors: {
-                400: `Bad Request`,
-                404: `Not Found`,
-            },
-        });
-    }
-
-    /**
-     * @returns Label OK
-     * @throws ApiError
-     */
-    public static headLabel(): CancelablePromise<Label> {
-        return __request(OpenAPI, {
-            method: 'HEAD',
-            url: '/api/labels/',
             errors: {
                 400: `Bad Request`,
                 404: `Not Found`,

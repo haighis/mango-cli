@@ -10,6 +10,59 @@ import { request as __request } from '../core/request';
 export class InstallService {
 
     /**
+     * Get Install
+     * Returns a Install collection
+     * @returns Install OK
+     * @throws ApiError
+     */
+    public static findApplicationInstalls(): CancelablePromise<Array<Install>> {
+        return __request(OpenAPI, {
+            method: 'GET',
+            url: '/api/installs/',
+            errors: {
+                400: `Bad Request`,
+                404: `Not Found`,
+            },
+        });
+    }
+
+    /**
+     * Create Install
+     * @param requestBody Created Install object
+     * @returns Install successful operation
+     * @throws ApiError
+     */
+    public static postApplicationInstall(
+        requestBody: Install,
+    ): CancelablePromise<Install> {
+        return __request(OpenAPI, {
+            method: 'POST',
+            url: '/api/installs/',
+            body: requestBody,
+            mediaType: 'application/json',
+            errors: {
+                400: `Bad Request`,
+                404: `Not Found`,
+            },
+        });
+    }
+
+    /**
+     * @returns Install OK
+     * @throws ApiError
+     */
+    public static headApplicationInstall(): CancelablePromise<Install> {
+        return __request(OpenAPI, {
+            method: 'HEAD',
+            url: '/api/installs/',
+            errors: {
+                400: `Bad Request`,
+                404: `Not Found`,
+            },
+        });
+    }
+
+    /**
      * Find Install by ID
      * Returns a single Install
      * @param id ID of Install
@@ -96,59 +149,6 @@ export class InstallService {
             },
             body: requestBody,
             mediaType: 'application/json',
-            errors: {
-                400: `Bad Request`,
-                404: `Not Found`,
-            },
-        });
-    }
-
-    /**
-     * Get Install
-     * Returns a Install collection
-     * @returns Install OK
-     * @throws ApiError
-     */
-    public static findApplicationInstalls(): CancelablePromise<Array<Install>> {
-        return __request(OpenAPI, {
-            method: 'GET',
-            url: '/api/installs/',
-            errors: {
-                400: `Bad Request`,
-                404: `Not Found`,
-            },
-        });
-    }
-
-    /**
-     * Create Install
-     * @param requestBody Created Install object
-     * @returns Install successful operation
-     * @throws ApiError
-     */
-    public static postApplicationInstall(
-        requestBody: Install,
-    ): CancelablePromise<Install> {
-        return __request(OpenAPI, {
-            method: 'POST',
-            url: '/api/installs/',
-            body: requestBody,
-            mediaType: 'application/json',
-            errors: {
-                400: `Bad Request`,
-                404: `Not Found`,
-            },
-        });
-    }
-
-    /**
-     * @returns Install OK
-     * @throws ApiError
-     */
-    public static headApplicationInstall(): CancelablePromise<Install> {
-        return __request(OpenAPI, {
-            method: 'HEAD',
-            url: '/api/installs/',
             errors: {
                 400: `Bad Request`,
                 404: `Not Found`,

@@ -10,13 +10,66 @@ import { request as __request } from '../core/request';
 export class ShellTypeService {
 
     /**
+     * Get Shell Type
+     * Returns a Shell Type collection
+     * @returns ShellType OK
+     * @throws ApiError
+     */
+    public static findShellTypes(): CancelablePromise<Array<ShellType>> {
+        return __request(OpenAPI, {
+            method: 'GET',
+            url: '/api/shelltypes/',
+            errors: {
+                400: `Bad Request`,
+                404: `Not Found`,
+            },
+        });
+    }
+
+    /**
+     * Create ShellType
+     * @param requestBody Created ShellType object
+     * @returns ShellType successful operation
+     * @throws ApiError
+     */
+    public static postShellType(
+        requestBody: ShellType,
+    ): CancelablePromise<ShellType> {
+        return __request(OpenAPI, {
+            method: 'POST',
+            url: '/api/shelltypes/',
+            body: requestBody,
+            mediaType: 'application/json',
+            errors: {
+                400: `Bad Request`,
+                404: `Not Found`,
+            },
+        });
+    }
+
+    /**
+     * @returns ShellType OK
+     * @throws ApiError
+     */
+    public static headShellType(): CancelablePromise<ShellType> {
+        return __request(OpenAPI, {
+            method: 'HEAD',
+            url: '/api/shelltypes/',
+            errors: {
+                400: `Bad Request`,
+                404: `Not Found`,
+            },
+        });
+    }
+
+    /**
      * Find shell type by ID
      * Returns a single shell type
      * @param id ID of ShellType
      * @returns ShellType successful operation
      * @throws ApiError
      */
-    public static findById7(
+    public static findById(
         id: string,
     ): CancelablePromise<ShellType> {
         return __request(OpenAPI, {
@@ -96,59 +149,6 @@ export class ShellTypeService {
             },
             body: requestBody,
             mediaType: 'application/json',
-            errors: {
-                400: `Bad Request`,
-                404: `Not Found`,
-            },
-        });
-    }
-
-    /**
-     * Get Shell Type
-     * Returns a Shell Type collection
-     * @returns ShellType OK
-     * @throws ApiError
-     */
-    public static findShellTypes(): CancelablePromise<Array<ShellType>> {
-        return __request(OpenAPI, {
-            method: 'GET',
-            url: '/api/shelltypes/',
-            errors: {
-                400: `Bad Request`,
-                404: `Not Found`,
-            },
-        });
-    }
-
-    /**
-     * Create ShellType
-     * @param requestBody Created ShellType object
-     * @returns ShellType successful operation
-     * @throws ApiError
-     */
-    public static postShellType(
-        requestBody: ShellType,
-    ): CancelablePromise<ShellType> {
-        return __request(OpenAPI, {
-            method: 'POST',
-            url: '/api/shelltypes/',
-            body: requestBody,
-            mediaType: 'application/json',
-            errors: {
-                400: `Bad Request`,
-                404: `Not Found`,
-            },
-        });
-    }
-
-    /**
-     * @returns ShellType OK
-     * @throws ApiError
-     */
-    public static headShellType(): CancelablePromise<ShellType> {
-        return __request(OpenAPI, {
-            method: 'HEAD',
-            url: '/api/shelltypes/',
             errors: {
                 400: `Bad Request`,
                 404: `Not Found`,
