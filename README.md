@@ -179,7 +179,7 @@ DESCRIPTION
   Display one or many resources
 
 EXAMPLES
-  $ mongo get applications
+  $ mango-cli get applications
 ```
 
 _See code: [dist/commands/get.ts](https://github.com/haighis/mango-cli/blob/v0.0.2/dist/commands/get.ts)_

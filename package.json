@@ -1,6 +1,6 @@
 {
   "name": "mango-platform-cli",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Mango CLI",
   "author": "John Haigh haighis@gmail.com",
   "bin": {
