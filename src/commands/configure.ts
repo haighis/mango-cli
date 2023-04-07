@@ -1,5 +1,5 @@
 import {Args, Command, Flags} from '@oclif/core'
-import { Label, SetupService } from '../client'
+import { Label, SetupService } from '../client/index';
 // System-Initial-Setup
 // Context 
 // Pre-requisites - user must be authenticated. todo 

@@ -10,6 +10,59 @@ import { request as __request } from '../core/request';
 export class ArtifactService {
 
     /**
+     * Get Artifact
+     * Returns a Artifact collection
+     * @returns Artifact OK
+     * @throws ApiError
+     */
+    public static findArtifacts(): CancelablePromise<Array<Artifact>> {
+        return __request(OpenAPI, {
+            method: 'GET',
+            url: '/api/artifacts/',
+            errors: {
+                400: `Bad Request`,
+                404: `Not Found`,
+            },
+        });
+    }
+
+    /**
+     * Create Artifact
+     * @param requestBody Created Artifact object
+     * @returns Artifact successful operation
+     * @throws ApiError
+     */
+    public static postArtifact(
+        requestBody: Artifact,
+    ): CancelablePromise<Artifact> {
+        return __request(OpenAPI, {
+            method: 'POST',
+            url: '/api/artifacts/',
+            body: requestBody,
+            mediaType: 'application/json',
+            errors: {
+                400: `Bad Request`,
+                404: `Not Found`,
+            },
+        });
+    }
+
+    /**
+     * @returns Artifact OK
+     * @throws ApiError
+     */
+    public static headArtifact(): CancelablePromise<Artifact> {
+        return __request(OpenAPI, {
+            method: 'HEAD',
+            url: '/api/artifacts/',
+            errors: {
+                400: `Bad Request`,
+                404: `Not Found`,
+            },
+        });
+    }
+
+    /**
      * Find Artifact by ID
      * Returns a single artifact
      * @param id ID of Artifact
@@ -96,59 +149,6 @@ export class ArtifactService {
             },
             body: requestBody,
             mediaType: 'application/json',
-            errors: {
-                400: `Bad Request`,
-                404: `Not Found`,
-            },
-        });
-    }
-
-    /**
-     * Get Artifact
-     * Returns a Artifact collection
-     * @returns Artifact OK
-     * @throws ApiError
-     */
-    public static findArtifacts(): CancelablePromise<Array<Artifact>> {
-        return __request(OpenAPI, {
-            method: 'GET',
-            url: '/api/artifacts/',
-            errors: {
-                400: `Bad Request`,
-                404: `Not Found`,
-            },
-        });
-    }
-
-    /**
-     * Create Artifact
-     * @param requestBody Created Artifact object
-     * @returns Artifact successful operation
-     * @throws ApiError
-     */
-    public static postArtifact(
-        requestBody: Artifact,
-    ): CancelablePromise<Artifact> {
-        return __request(OpenAPI, {
-            method: 'POST',
-            url: '/api/artifacts/',
-            body: requestBody,
-            mediaType: 'application/json',
-            errors: {
-                400: `Bad Request`,
-                404: `Not Found`,
-            },
-        });
-    }
-
-    /**
-     * @returns Artifact OK
-     * @throws ApiError
-     */
-    public static headArtifact(): CancelablePromise<Artifact> {
-        return __request(OpenAPI, {
-            method: 'HEAD',
-            url: '/api/artifacts/',
             errors: {
                 400: `Bad Request`,
                 404: `Not Found`,

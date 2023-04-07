@@ -1,12 +1,12 @@
 {
-  "name": "mango-cli",
-  "version": "0.0.0",
+  "name": "mango-platform-cli",
+  "version": "0.0.3",
   "description": "Mango CLI",
   "author": "John Haigh haighis@gmail.com",
   "bin": {
-    "mongo-cli": "./bin/run"
+    "mango-cli": "./bin/run"
   },
-  "homepage": "https://github.com/haighis/mongo-cli",
+  "homepage": "https://github.com/haighis/mango-cli",
   "license": "MIT",
   "main": "dist/index.js",
   "repository": "https://github.com/haighis/mango-cli",
@@ -20,17 +20,27 @@
     "@oclif/core": "^2",
     "@oclif/plugin-help": "^5",
     "@oclif/plugin-plugins": "^2.4.0",
+    "adm-zip": "^0.5.10",
     "axios": "^1.3.4",
+    "chalk": "^5.2.0",
+    "cli-table": "^0.3.11",
     "form-data": "^4.0.0",
+    "fs-extra": "^11.1.1",
+    "https": "^1.0.0",
     "js-yaml": "^4.1.0",
-    "openapi-typescript-codegen": "^0.23.0"
+    "mangoapiserver_client_sdk_typescript": "github:haighis/mangoapiserver_client_sdk_typescript",
+    "openapi-typescript-codegen": "^0.23.0",
+    "superagent": "^8.0.9"
   },
   "devDependencies": {
     "@oclif/test": "^2.3.10",
+    "@types/adm-zip": "^0.5.0",
     "@types/chai": "^4",
+    "@types/fs-extra": "^11.0.1",
     "@types/js-yaml": "^4.0.5",
     "@types/mocha": "^9.0.0",
     "@types/node": "^16.18.14",
+    "@types/superagent": "^4.1.16",
     "chai": "^4",
     "eslint": "^7.32.0",
     "eslint-config-oclif": "^4",
@@ -43,8 +53,8 @@
     "typescript": "^4.9.5"
   },
   "oclif": {
-    "bin": "mongo-cli",
-    "dirname": "mongo-cli",
+    "bin": "mango-cli",
+    "dirname": "mango-cli",
     "commands": "./dist/commands",
     "plugins": [
       "@oclif/plugin-help",
@@ -65,12 +75,12 @@
     "prepack": "yarn build && oclif manifest && oclif readme",
     "test": "mocha --forbid-only \"test/**/*.test.ts\"",
     "version": "oclif readme && git add README.md",
-    "generate-client": "openapi --input http://localhost:7878/v3/api-docs --output ./src/test/client --client axios"
+    "generate-client": "openapi --input http://localhost:7878/v3/api-docs --output ./src/client --client axios"
   },
   "engines": {
     "node": ">=12.0.0"
   },
-  "bugs": "https://github.com/https://github.com/haighis/mongo-cli/issues",
+  "bugs": "https://github.com/haighis/mango-cli/issues",
   "keywords": [
     "oclif"
   ],

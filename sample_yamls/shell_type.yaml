@@ -1,0 +1,14 @@
+---
+kind: ShellType
+classification: Frontend
+subClassification: Angular
+description: Angular Minimal with Item Catalog
+fileReference: http://localhost:8125/angular_minimal.zip
+namespace: system
+---
+kind: ShellType
+classification: Frontend
+subClassification: Angular
+description: Angular Minimal no Item Catalog
+fileReference: http://localhost:8125/angular_minimal_no_catalog.zip
+namespace: system

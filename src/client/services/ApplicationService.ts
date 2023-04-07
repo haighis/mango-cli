@@ -10,6 +10,59 @@ import { request as __request } from '../core/request';
 export class ApplicationService {
 
     /**
+     * Get Application
+     * Returns a Application collection
+     * @returns Application OK
+     * @throws ApiError
+     */
+    public static findApplications(): CancelablePromise<Array<Application>> {
+        return __request(OpenAPI, {
+            method: 'GET',
+            url: '/api/applications/',
+            errors: {
+                400: `Bad Request`,
+                404: `Not Found`,
+            },
+        });
+    }
+
+    /**
+     * Create Application
+     * @param requestBody Created Application object
+     * @returns Application successful operation
+     * @throws ApiError
+     */
+    public static postApplication(
+        requestBody: Application,
+    ): CancelablePromise<Application> {
+        return __request(OpenAPI, {
+            method: 'POST',
+            url: '/api/applications/',
+            body: requestBody,
+            mediaType: 'application/json',
+            errors: {
+                400: `Bad Request`,
+                404: `Not Found`,
+            },
+        });
+    }
+
+    /**
+     * @returns Application OK
+     * @throws ApiError
+     */
+    public static headApplication(): CancelablePromise<Application> {
+        return __request(OpenAPI, {
+            method: 'HEAD',
+            url: '/api/applications/',
+            errors: {
+                400: `Bad Request`,
+                404: `Not Found`,
+            },
+        });
+    }
+
+    /**
      * Find application by ID
      * Returns a single application
      * @param id ID of Application
@@ -96,59 +149,6 @@ export class ApplicationService {
             },
             body: requestBody,
             mediaType: 'application/json',
-            errors: {
-                400: `Bad Request`,
-                404: `Not Found`,
-            },
-        });
-    }
-
-    /**
-     * Get Application
-     * Returns a Application collection
-     * @returns Application OK
-     * @throws ApiError
-     */
-    public static findApplications(): CancelablePromise<Array<Application>> {
-        return __request(OpenAPI, {
-            method: 'GET',
-            url: '/api/applications/',
-            errors: {
-                400: `Bad Request`,
-                404: `Not Found`,
-            },
-        });
-    }
-
-    /**
-     * Create Application
-     * @param requestBody Created Application object
-     * @returns Application successful operation
-     * @throws ApiError
-     */
-    public static postApplication(
-        requestBody: Application,
-    ): CancelablePromise<Application> {
-        return __request(OpenAPI, {
-            method: 'POST',
-            url: '/api/applications/',
-            body: requestBody,
-            mediaType: 'application/json',
-            errors: {
-                400: `Bad Request`,
-                404: `Not Found`,
-            },
-        });
-    }
-
-    /**
-     * @returns Application OK
-     * @throws ApiError
-     */
-    public static headApplication(): CancelablePromise<Application> {
-        return __request(OpenAPI, {
-            method: 'HEAD',
-            url: '/api/applications/',
             errors: {
                 400: `Bad Request`,
                 404: `Not Found`,

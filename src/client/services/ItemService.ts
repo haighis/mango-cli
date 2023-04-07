@@ -1,13 +1,68 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
+import type { Artifact } from '../models/Artifact';
 import type { Item } from '../models/Item';
+import type { ItemDto } from '../models/ItemDto';
 
 import type { CancelablePromise } from '../core/CancelablePromise';
 import { OpenAPI } from '../core/OpenAPI';
 import { request as __request } from '../core/request';
 
 export class ItemService {
+
+    /**
+     * Get Item
+     * Returns a Item collection
+     * @returns Item OK
+     * @throws ApiError
+     */
+    public static findItems(): CancelablePromise<Array<Item>> {
+        return __request(OpenAPI, {
+            method: 'GET',
+            url: '/api/items/',
+            errors: {
+                400: `Bad Request`,
+                404: `Not Found`,
+            },
+        });
+    }
+
+    /**
+     * Create Item
+     * @param requestBody Created Item object
+     * @returns Item successful operation
+     * @throws ApiError
+     */
+    public static postItem(
+        requestBody: Item,
+    ): CancelablePromise<Item> {
+        return __request(OpenAPI, {
+            method: 'POST',
+            url: '/api/items/',
+            body: requestBody,
+            mediaType: 'application/json',
+            errors: {
+                400: `Bad Request`,
+                404: `Not Found`,
+            },
+        });
+    }
+
+    /**
+     * @returns Item OK
+     * @throws ApiError
+     */
+    public static headItem(): CancelablePromise<Item> {
+        return __request(OpenAPI, {
+            method: 'HEAD',
+            url: '/api/items/',
+            errors: {
+                400: `Bad Request`,
+                404: `Not Found`,
+            },
+        });
+    }
 
     /**
      * Find Item by ID
@@ -104,51 +159,24 @@ export class ItemService {
     }
 
     /**
-     * Get Item
-     * Returns a Item collection
-     * @returns Item OK
-     * @throws ApiError
-     */
-    public static findItems(): CancelablePromise<Array<Item>> {
-        return __request(OpenAPI, {
-            method: 'GET',
-            url: '/api/items/',
-            errors: {
-                400: `Bad Request`,
-                404: `Not Found`,
-            },
-        });
-    }
-
-    /**
-     * Create Item
+     * Create Artifact for Item
+     * @param orderId
      * @param requestBody Created Item object
-     * @returns Item successful operation
+     * @returns Artifact successful operation
      * @throws ApiError
      */
-    public static postItem(
-        requestBody: Item,
-    ): CancelablePromise<Item> {
+    public static addArtifactForItem(
+        orderId: string,
+        requestBody: ItemDto,
+    ): CancelablePromise<Artifact> {
         return __request(OpenAPI, {
             method: 'POST',
-            url: '/api/items/',
+            url: '/api/items/{orderId}/artifact',
+            path: {
+                'orderId': orderId,
+            },
             body: requestBody,
             mediaType: 'application/json',
-            errors: {
-                400: `Bad Request`,
-                404: `Not Found`,
-            },
-        });
-    }
-
-    /**
-     * @returns Item OK
-     * @throws ApiError
-     */
-    public static headItem(): CancelablePromise<Item> {
-        return __request(OpenAPI, {
-            method: 'HEAD',
-            url: '/api/items/',
             errors: {
                 400: `Bad Request`,
                 404: `Not Found`,

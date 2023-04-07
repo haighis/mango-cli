@@ -8,6 +8,9 @@
 
 `./bin/run`
 
+## Publish
+`npm publish`
+
 ## Generate Mango Api Server JS Client
 - Run the Mango Api Server Java Application on port 7878
 `npm run generate-client` will create the Mango Api Server JS Client at the location `src\test\client`
@@ -17,11 +20,14 @@ which allows you to view the JS Client Model and Services.
 
 ## Supplying Commands
 
-`./bin/run get application` 
-`./bin/run create application --file application.yaml`
+`./bin/run get Application` 
+`./bin/run create Application --file application.yaml`
 
 ## Supplying Flags
-`./bin/run create application --file application.yaml`
+`./bin/run create Application --file application.yaml`
+
+## Create Application Shell
+`./bin/run create ApplicationShell -f sample_yamls/application_shell.yaml`
 
 # TODO
 - cli create application_shell command with code generation for angular using a basic foundation that is the default foundation in mango that allows an application shell to load a single application.
@@ -33,18 +39,44 @@ which allows you to view the JS Client Model and Services.
 ### Login 
 - use pupeteer to open a browser and ask the user to login
 
+Global libraries
+You can run npm list -g to see which global libraries are installed and where they're located. Use npm list -g | head -1 for truncated output showing just the path. If you want to display only main packages not its sub-packages which installs along with it - you can use - npm list --depth=0 which will show all packages and for getting only globally installed packages, just add -g i.e. npm list -g --depth=0.
+
+On Unix systems they are normally placed in /usr/local/lib/node or /usr/local/lib/node_modules when installed globally. If you set the NODE_PATH environment variable to this path, the modules can be found by node.
+
+Windows XP - %USERPROFILE%\AppData\npm\node_modules
+Windows 7, 8 and 10 - %USERPROFILE%\AppData\Roaming\npm\node_modules
+
+Non-global libraries
+Non-global libraries are installed the node_modules sub folder in the folder you are currently in.
+
+You can run npm list to see the installed non-global libraries for your current location.
+
+When installing use -g option to install globally
+npm install -g pm2 - pm2 will be installed globally. It will then typically be found in /usr/local/lib/node_modules (Use npm root -g to check where.)
+
+npm install pm2 - pm2 will be installed locally. It will then typically be found in the local directory in /node_modules
+
+
+
+
+
+
+
 <!-- toc -->
+* [Mango CLI](#mango-cli)
+* [TODO](#todo)
 * [Usage](#usage)
 * [Commands](#commands)
 <!-- tocstop -->
 # Usage
 <!-- usage -->
 ```sh-session
-$ npm install -g mango-cli
+$ npm install -g mango-platform-cli
 $ mango-cli COMMAND
 running command...
 $ mango-cli (--version)
-mango-cli/0.0.0 darwin-x64 node-v16.13.0
+mango-platform-cli/0.0.2 darwin-x64 node-v16.13.0
 $ mango-cli --help [COMMAND]
 USAGE
   $ mango-cli COMMAND
@@ -53,6 +85,9 @@ USAGE
 <!-- usagestop -->
 # Commands
 <!-- commands -->
+* [`mango-cli configure [FILE]`](#mango-cli-configure-file)
+* [`mango-cli create [KIND]`](#mango-cli-create-kind)
+* [`mango-cli get [KIND]`](#mango-cli-get-kind)
 * [`mango-cli hello PERSON`](#mango-cli-hello-person)
 * [`mango-cli hello world`](#mango-cli-hello-world)
 * [`mango-cli help [COMMANDS]`](#mango-cli-help-commands)
@@ -65,6 +100,89 @@ USAGE
 * [`mango-cli plugins:uninstall PLUGIN...`](#mango-cli-pluginsuninstall-plugin-1)
 * [`mango-cli plugins:uninstall PLUGIN...`](#mango-cli-pluginsuninstall-plugin-2)
 * [`mango-cli plugins update`](#mango-cli-plugins-update)
+
+## `mango-cli configure [FILE]`
+
+Configure Mango Platform Settings
+
+```
+USAGE
+  $ mango-cli configure [FILE] [--setup]
+
+ARGUMENTS
+  FILE  file to read
+
+FLAGS
+  --setup  Mango System-Initial-Setup
+
+DESCRIPTION
+  Configure Mango Platform Settings
+
+EXAMPLES
+  $ mango-cli configure
+```
+
+_See code: [dist/commands/configure.ts](https://github.com/haighis/mango-cli/blob/v0.0.2/dist/commands/configure.ts)_
+
+## `mango-cli create [KIND]`
+
+Create a resource from a file or from stdin.
+
+```
+USAGE
+  $ mango-cli create [KIND] [-f <value>]
+
+ARGUMENTS
+  KIND  create
+
+FLAGS
+  -f, --file=<value>  file to read
+
+DESCRIPTION
+  Create a resource from a file or from stdin.
+
+EXAMPLES
+  $ mango-cli create -f path/file.yaml
+```
+
+_See code: [dist/commands/create.ts](https://github.com/haighis/mango-cli/blob/v0.0.2/dist/commands/create.ts)_
+
+## `mango-cli get [KIND]`
+
+Display one or many resources
+
+```
+USAGE
+  $ mango-cli get [KIND] [--json] [-n <value>] [-f] [--columns <value> | -x] [--sort <value>] [--filter
+    <value>] [--output csv|json|yaml |  | [--csv | --no-truncate]] [--no-header | ]
+
+ARGUMENTS
+  KIND  get
+
+FLAGS
+  -f, --force
+  -n, --name=<value>  kind to print
+  -x, --extended      show extra columns
+  --columns=<value>   only show provided columns (comma-separated)
+  --csv               output is csv format [alias: --output=csv]
+  --filter=<value>    filter property by partial string matching, ex: name=foo
+  --no-header         hide table header from output
+  --no-truncate       do not truncate output to fit screen
+  --output=<option>   output in a more machine friendly format
+                      <options: csv|json|yaml>
+  --sort=<value>      property to sort by (prepend '-' for descending)
+
+GLOBAL FLAGS
+  --json  Format output as json.
+
+DESCRIPTION
+  Display one or many resources
+
+EXAMPLES
+  $ mango-cli get applications
+```
+
+_See code: [dist/commands/get.ts](https://github.com/haighis/mango-cli/blob/v0.0.2/dist/commands/get.ts)_
 
 ## `mango-cli hello PERSON`
 
@@ -88,7 +206,7 @@ EXAMPLES
   hello friend from oclif! (./src/commands/hello/index.ts)
 ```
 
-_See code: [dist/commands/hello/index.ts](https://github.com/haighis/mango-cli/blob/v0.0.0/dist/commands/hello/index.ts)_
+_See code: [dist/commands/hello/index.ts](https://github.com/haighis/mango-cli/blob/v0.0.2/dist/commands/hello/index.ts)_
 
 ## `mango-cli hello world`
 
@@ -124,7 +242,7 @@ DESCRIPTION
   Display help for mango-cli.
 ```
 
-_See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v5.2.7/src/commands/help.ts)_
+_See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v5.2.8/src/commands/help.ts)_
 
 ## `mango-cli plugins`
 
@@ -144,7 +262,7 @@ EXAMPLES
   $ mango-cli plugins
 ```
 
-_See code: [@oclif/plugin-plugins](https://github.com/oclif/plugin-plugins/blob/v2.4.0/src/commands/plugins/index.ts)_
+_See code: [@oclif/plugin-plugins](https://github.com/oclif/plugin-plugins/blob/v2.4.3/src/commands/plugins/index.ts)_
 
 ## `mango-cli plugins:install PLUGIN...`
 

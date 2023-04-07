@@ -11,6 +11,7 @@ export type { ApplicationShell } from './models/ApplicationShell';
 export type { Artifact } from './models/Artifact';
 export type { Install } from './models/Install';
 export type { Item } from './models/Item';
+export type { ItemDto } from './models/ItemDto';
 export type { Kind } from './models/Kind';
 export type { Label } from './models/Label';
 export type { ShellType } from './models/ShellType';

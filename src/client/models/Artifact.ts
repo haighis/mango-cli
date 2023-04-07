@@ -10,17 +10,11 @@ export type Artifact = {
      * Name of the Artifact.
      */
     name: string;
-    /**
-     * isCurrent of the Artifact.
-     */
-    isCurrent: boolean;
-    /**
-     * Status of the Artifact.
-     */
-    status: string;
-    /**
-     * Namespace of the item
-     */
-    namespace: string;
+    url?: string;
+    version?: string;
+    isCurrent?: boolean;
+    status?: string;
+    namespace?: string;
+    itemId?: string;
 };
 
