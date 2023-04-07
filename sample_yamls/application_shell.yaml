@@ -1,6 +1,5 @@
 ---
 kind: ApplicationShell
-applicationShellName: John EEE John Pete's # Name for Application Shell
+applicationShellName: John EEE John Petes # Name for Application Shell
 shellTypeId: 9a811244-5840-4e37-ad5c-369f731784e6 # Shell Type
-#applicationShellTypeId: eba0635e-fff7-41e8-b008-099a0902d067 # Shell Type
-namespace: default
+namespace: default # Create a namespace to segregate for each client or tenant.

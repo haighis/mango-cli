@@ -117,8 +117,9 @@ export default class Create extends Command {
     const source = appShellType.fileReference;
     const zipfile = path.basename(source); 
     let extension = path.extname(source);
-    let fullFileInfo = path.basename(source)
-    let onlyFilename = path.basename(fullFileInfo, extension)
+    let fullFileInfo = path.basename(source);
+    let onlyFilename = path.basename(fullFileInfo, extension);
+    let finalFolderName = appShellCreated.applicationShellName.replace(/\s+/g,"_");
     superagent
     .get(source)
     .on('error', function(error: any) {
@@ -134,13 +135,29 @@ export default class Create extends Command {
         const content = `export class GlobalConstants \n { \n \t public static ApplicationInstanceKey: string = "${instanceCode}"; \n }`;
         fs.writeFileSync(`./temp/${onlyFilename}/src/app/global.ts`, content);
 
-        fsExtra.copy('./temp', '.', function(error: any) {
+        fs.rename(`./temp/${onlyFilename}`,`./temp/${finalFolderName}`,function(error: any) {
           if (error) {
               throw error;
           } else {
             console.log("success!");
-          }
-      }); 
+          }});
+          // Copy from temp location to user current location wherever that is
+          fsExtra.copy('./temp', '.', function(error: any) {
+            if (error) {
+                throw error;
+            } else {
+              console.log("success!");
+            }
+          }); 
+
+          fsExtra.remove('./temp', function(error: any) { 
+            if (error) {
+              throw error;
+            } else {
+              console.log("success!");
+            }}
+          );
+          
         // Move file to location user specified with flag file_location
     });
     

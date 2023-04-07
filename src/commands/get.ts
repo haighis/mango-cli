@@ -22,7 +22,7 @@ export default class Get extends Command {
   // ]
 
   static examples = [
-    `$ mongo get applications`,
+    `$ mango-cli get applications`,
   ]
 
   static flags = {
@@ -68,7 +68,7 @@ export default class Get extends Command {
           apiServerResult = await ShellTypeService.findShellTypes() as ShellType[];
           uiTableColumns = {id: { header: 'Identifer'}, classification: { header: 'Classification'}, subClassification: { header: 'Sub Classification'}, fileReference: { header: 'File Ref'}, description: {header: "Desc"} }      
           break;
-        case "ShellType":
+        case "Application":
             // only show active applications
             // user can pass --all to show all
             apiServerResult = await ApplicationService.findApplications() as Application[];

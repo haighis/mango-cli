@@ -1,12 +1,12 @@
 {
-  "name": "mango-cli",
-  "version": "0.0.0",
+  "name": "mango-platform-cli",
+  "version": "0.0.2",
   "description": "Mango CLI",
   "author": "John Haigh haighis@gmail.com",
   "bin": {
-    "mongo-cli": "./bin/run"
+    "mango-cli": "./bin/run"
   },
-  "homepage": "https://github.com/haighis/mongo-cli",
+  "homepage": "https://github.com/haighis/mango-cli",
   "license": "MIT",
   "main": "dist/index.js",
   "repository": "https://github.com/haighis/mango-cli",
@@ -53,8 +53,8 @@
     "typescript": "^4.9.5"
   },
   "oclif": {
-    "bin": "mongo-cli",
-    "dirname": "mongo-cli",
+    "bin": "mango-cli",
+    "dirname": "mango-cli",
     "commands": "./dist/commands",
     "plugins": [
       "@oclif/plugin-help",
@@ -80,7 +80,7 @@
   "engines": {
     "node": ">=12.0.0"
   },
-  "bugs": "https://github.com/https://github.com/haighis/mongo-cli/issues",
+  "bugs": "https://github.com/haighis/mango-cli/issues",
   "keywords": [
     "oclif"
   ],
