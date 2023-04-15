@@ -21,6 +21,7 @@ export class ShellTypeService {
             url: '/api/shelltypes/',
             errors: {
                 400: `Bad Request`,
+                401: `Unauthorized`,
                 404: `Not Found`,
             },
         });
@@ -42,6 +43,7 @@ export class ShellTypeService {
             mediaType: 'application/json',
             errors: {
                 400: `Bad Request`,
+                401: `Unauthorized`,
                 404: `Not Found`,
             },
         });
@@ -57,6 +59,7 @@ export class ShellTypeService {
             url: '/api/shelltypes/',
             errors: {
                 400: `Bad Request`,
+                401: `Unauthorized`,
                 404: `Not Found`,
             },
         });
@@ -80,6 +83,7 @@ export class ShellTypeService {
             },
             errors: {
                 400: `Invalid ID supplied`,
+                401: `Unauthorized`,
                 404: `shell type not found`,
             },
         });
@@ -105,6 +109,7 @@ export class ShellTypeService {
             mediaType: 'application/json',
             errors: {
                 400: `Bad Request`,
+                401: `Unauthorized`,
                 404: `Not Found`,
             },
         });
@@ -126,6 +131,7 @@ export class ShellTypeService {
             },
             errors: {
                 400: `Bad Request`,
+                401: `Unauthorized`,
                 404: `Not Found`,
             },
         });
@@ -151,6 +157,7 @@ export class ShellTypeService {
             mediaType: 'application/json',
             errors: {
                 400: `Bad Request`,
+                401: `Unauthorized`,
                 404: `Not Found`,
             },
         });

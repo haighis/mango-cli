@@ -21,6 +21,7 @@ export class LabelService {
             url: '/api/labels/',
             errors: {
                 400: `Bad Request`,
+                401: `Unauthorized`,
                 404: `Not Found`,
             },
         });
@@ -42,6 +43,7 @@ export class LabelService {
             mediaType: 'application/json',
             errors: {
                 400: `Bad Request`,
+                401: `Unauthorized`,
                 404: `Not Found`,
             },
         });
@@ -57,6 +59,7 @@ export class LabelService {
             url: '/api/labels/',
             errors: {
                 400: `Bad Request`,
+                401: `Unauthorized`,
                 404: `Not Found`,
             },
         });
@@ -69,7 +72,7 @@ export class LabelService {
      * @returns Label successful operation
      * @throws ApiError
      */
-    public static findById6(
+    public static findById1(
         id: string,
     ): CancelablePromise<Label> {
         return __request(OpenAPI, {
@@ -80,6 +83,7 @@ export class LabelService {
             },
             errors: {
                 400: `Invalid ID supplied`,
+                401: `Unauthorized`,
                 404: `label not found`,
             },
         });
@@ -105,6 +109,7 @@ export class LabelService {
             mediaType: 'application/json',
             errors: {
                 400: `Bad Request`,
+                401: `Unauthorized`,
                 404: `Not Found`,
             },
         });
@@ -126,6 +131,7 @@ export class LabelService {
             },
             errors: {
                 400: `Bad Request`,
+                401: `Unauthorized`,
                 404: `Not Found`,
             },
         });
@@ -151,6 +157,7 @@ export class LabelService {
             mediaType: 'application/json',
             errors: {
                 400: `Bad Request`,
+                401: `Unauthorized`,
                 404: `Not Found`,
             },
         });

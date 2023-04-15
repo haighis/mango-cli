@@ -12,66 +12,13 @@ import { request as __request } from '../core/request';
 export class ItemService {
 
     /**
-     * Get Item
-     * Returns a Item collection
-     * @returns Item OK
-     * @throws ApiError
-     */
-    public static findItems(): CancelablePromise<Array<Item>> {
-        return __request(OpenAPI, {
-            method: 'GET',
-            url: '/api/items/',
-            errors: {
-                400: `Bad Request`,
-                404: `Not Found`,
-            },
-        });
-    }
-
-    /**
-     * Create Item
-     * @param requestBody Created Item object
-     * @returns Item successful operation
-     * @throws ApiError
-     */
-    public static postItem(
-        requestBody: Item,
-    ): CancelablePromise<Item> {
-        return __request(OpenAPI, {
-            method: 'POST',
-            url: '/api/items/',
-            body: requestBody,
-            mediaType: 'application/json',
-            errors: {
-                400: `Bad Request`,
-                404: `Not Found`,
-            },
-        });
-    }
-
-    /**
-     * @returns Item OK
-     * @throws ApiError
-     */
-    public static headItem(): CancelablePromise<Item> {
-        return __request(OpenAPI, {
-            method: 'HEAD',
-            url: '/api/items/',
-            errors: {
-                400: `Bad Request`,
-                404: `Not Found`,
-            },
-        });
-    }
-
-    /**
      * Find Item by ID
      * Returns a single item
      * @param id ID of Item
      * @returns Item successful operation
      * @throws ApiError
      */
-    public static findById4(
+    public static findById5(
         id: string,
     ): CancelablePromise<Item> {
         return __request(OpenAPI, {
@@ -82,6 +29,7 @@ export class ItemService {
             },
             errors: {
                 400: `Invalid ID supplied`,
+                401: `Unauthorized`,
                 404: `item not found`,
             },
         });
@@ -107,6 +55,7 @@ export class ItemService {
             mediaType: 'application/json',
             errors: {
                 400: `Bad Request`,
+                401: `Unauthorized`,
                 404: `Not Found`,
             },
         });
@@ -128,6 +77,7 @@ export class ItemService {
             },
             errors: {
                 400: `Bad Request`,
+                401: `Unauthorized`,
                 404: `Not Found`,
             },
         });
@@ -153,6 +103,63 @@ export class ItemService {
             mediaType: 'application/json',
             errors: {
                 400: `Bad Request`,
+                401: `Unauthorized`,
+                404: `Not Found`,
+            },
+        });
+    }
+
+    /**
+     * Get Item
+     * Returns a Item collection
+     * @returns Item OK
+     * @throws ApiError
+     */
+    public static findItems(): CancelablePromise<Array<Item>> {
+        return __request(OpenAPI, {
+            method: 'GET',
+            url: '/api/items/',
+            errors: {
+                400: `Bad Request`,
+                401: `Unauthorized`,
+                404: `Not Found`,
+            },
+        });
+    }
+
+    /**
+     * Create Item
+     * @param requestBody Created Item object
+     * @returns Item successful operation
+     * @throws ApiError
+     */
+    public static postItem(
+        requestBody: Item,
+    ): CancelablePromise<Item> {
+        return __request(OpenAPI, {
+            method: 'POST',
+            url: '/api/items/',
+            body: requestBody,
+            mediaType: 'application/json',
+            errors: {
+                400: `Bad Request`,
+                401: `Unauthorized`,
+                404: `Not Found`,
+            },
+        });
+    }
+
+    /**
+     * @returns Item OK
+     * @throws ApiError
+     */
+    public static headItem(): CancelablePromise<Item> {
+        return __request(OpenAPI, {
+            method: 'HEAD',
+            url: '/api/items/',
+            errors: {
+                400: `Bad Request`,
+                401: `Unauthorized`,
                 404: `Not Found`,
             },
         });
@@ -179,6 +186,7 @@ export class ItemService {
             mediaType: 'application/json',
             errors: {
                 400: `Bad Request`,
+                401: `Unauthorized`,
                 404: `Not Found`,
             },
         });

@@ -6,61 +6,9 @@ import type { Application } from '../models/Application';
 import type { CancelablePromise } from '../core/CancelablePromise';
 import { OpenAPI } from '../core/OpenAPI';
 import { request as __request } from '../core/request';
+import { BaseService } from './BaseService';
 
-export class ApplicationService {
-
-    /**
-     * Get Application
-     * Returns a Application collection
-     * @returns Application OK
-     * @throws ApiError
-     */
-    public static findApplications(): CancelablePromise<Array<Application>> {
-        return __request(OpenAPI, {
-            method: 'GET',
-            url: '/api/applications/',
-            errors: {
-                400: `Bad Request`,
-                404: `Not Found`,
-            },
-        });
-    }
-
-    /**
-     * Create Application
-     * @param requestBody Created Application object
-     * @returns Application successful operation
-     * @throws ApiError
-     */
-    public static postApplication(
-        requestBody: Application,
-    ): CancelablePromise<Application> {
-        return __request(OpenAPI, {
-            method: 'POST',
-            url: '/api/applications/',
-            body: requestBody,
-            mediaType: 'application/json',
-            errors: {
-                400: `Bad Request`,
-                404: `Not Found`,
-            },
-        });
-    }
-
-    /**
-     * @returns Application OK
-     * @throws ApiError
-     */
-    public static headApplication(): CancelablePromise<Application> {
-        return __request(OpenAPI, {
-            method: 'HEAD',
-            url: '/api/applications/',
-            errors: {
-                400: `Bad Request`,
-                404: `Not Found`,
-            },
-        });
-    }
+export class ApplicationService extends BaseService {
 
     /**
      * Find application by ID
@@ -69,10 +17,10 @@ export class ApplicationService {
      * @returns Application successful operation
      * @throws ApiError
      */
-    public static findById(
+    public findById(
         id: string,
     ): CancelablePromise<Application> {
-        return __request(OpenAPI, {
+        return __request(this.openApiOverride, {
             method: 'GET',
             url: '/api/applications/{id}',
             path: {
@@ -80,6 +28,7 @@ export class ApplicationService {
             },
             errors: {
                 400: `Invalid ID supplied`,
+                401: `Unauthorized`,
                 404: `Application not found`,
             },
         });
@@ -91,11 +40,11 @@ export class ApplicationService {
      * @returns Application OK
      * @throws ApiError
      */
-    public static updateApplication(
+    public updateApplication(
         id: string,
         requestBody: Application,
     ): CancelablePromise<Application> {
-        return __request(OpenAPI, {
+        return __request(this.openApiOverride, {
             method: 'PUT',
             url: '/api/applications/{id}',
             path: {
@@ -105,6 +54,7 @@ export class ApplicationService {
             mediaType: 'application/json',
             errors: {
                 400: `Bad Request`,
+                401: `Unauthorized`,
                 404: `Not Found`,
             },
         });
@@ -115,10 +65,10 @@ export class ApplicationService {
      * @returns string OK
      * @throws ApiError
      */
-    public static deleteApplication(
+    public deleteApplication(
         id: string,
     ): CancelablePromise<string> {
-        return __request(OpenAPI, {
+        return __request(this.openApiOverride, {
             method: 'DELETE',
             url: '/api/applications/{id}',
             path: {
@@ -126,6 +76,7 @@ export class ApplicationService {
             },
             errors: {
                 400: `Bad Request`,
+                401: `Unauthorized`,
                 404: `Not Found`,
             },
         });
@@ -137,11 +88,11 @@ export class ApplicationService {
      * @returns Application OK
      * @throws ApiError
      */
-    public static patchApplication(
+    public patchApplication(
         id: string,
         requestBody: Application,
     ): CancelablePromise<Application> {
-        return __request(OpenAPI, {
+        return __request(this.openApiOverride, {
             method: 'PATCH',
             url: '/api/applications/{id}',
             path: {
@@ -151,6 +102,63 @@ export class ApplicationService {
             mediaType: 'application/json',
             errors: {
                 400: `Bad Request`,
+                401: `Unauthorized`,
+                404: `Not Found`,
+            },
+        });
+    }
+
+    /**
+     * Get Application
+     * Returns a Application collection
+     * @returns Application OK
+     * @throws ApiError
+     */
+    public findApplications(): CancelablePromise<Array<Application>> {
+        return __request(this.openApiOverride, {
+            method: 'GET',
+            url: '/api/applications/',
+            errors: {
+                400: `Bad Request`,
+                401: `Unauthorized`,
+                404: `Not Found`,
+            },
+        });
+    }
+
+    /**
+     * Create Application
+     * @param requestBody Created Application object
+     * @returns Application successful operation
+     * @throws ApiError
+     */
+    public postApplication(
+        requestBody: Application,
+    ): CancelablePromise<Application> {
+        return __request(this.openApiOverride, {
+            method: 'POST',
+            url: '/api/applications/',
+            body: requestBody,
+            mediaType: 'application/json',
+            errors: {
+                400: `Bad Request`,
+                401: `Unauthorized`,
+                404: `Not Found`,
+            },
+        });
+    }
+
+    /**
+     * @returns Application OK
+     * @throws ApiError
+     */
+    public headApplication(): CancelablePromise<Application> {
+        return __request(this.openApiOverride, {
+            method: 'HEAD',
+            url: '/api/applications/',
+            errors: {
+                400: `Bad Request`,
+                401: `Unauthorized`,
                 404: `Not Found`,
             },
         });

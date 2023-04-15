@@ -8,7 +8,8 @@ import * as superagent from 'superagent';
 import * as admZip from 'adm-zip';
 import { Global } from '../Global'
 import { ApplicationService, ApplicationShell, ApplicationShellService, ShellType, ShellTypeService } from '../client'
-
+import Context from '../localdb/Context';
+import contextApi from '../localdb/contextApi';
 // const https = require('https');
 // const fs = require('fs');
 // const path = require('path');
@@ -62,6 +63,13 @@ export default class Create extends Command {
   // set installed instance code in code
   if (kind) {
     switch(kind) {
+      case "Context":
+        let contexts: Context[] = doc as unknown as Context[];
+          contexts.forEach(item => {
+            console.log(' item in create ', item)
+            contextApi.add(item.apiServerUrl, item.context, item.defaultContext);
+          });
+        break;
       case "Application":
       case "ApplicationShell":
         // Get the shell_type_id flag

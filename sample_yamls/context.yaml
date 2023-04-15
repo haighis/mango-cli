@@ -1,0 +1,15 @@
+---
+kind: Context
+apiServerUrl: http://localhost:7878
+context: dev
+defaultContext: false
+---
+kind: Context
+apiServerUrl: http://localhost:8000
+context: devkonga
+defaultContext: true
+---
+kind: Context
+apiServerUrl: http://prod.mango.com
+context: prod
+defaultContext: false

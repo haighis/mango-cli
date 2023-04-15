@@ -11,66 +11,13 @@ import { request as __request } from '../core/request';
 export class ApplicationShellService {
 
     /**
-     * Get Application Shell
-     * Returns a Application Shell collection
-     * @returns ApplicationShell OK
-     * @throws ApiError
-     */
-    public static findApplicationShells(): CancelablePromise<Array<ApplicationShell>> {
-        return __request(OpenAPI, {
-            method: 'GET',
-            url: '/api/applicationshells/',
-            errors: {
-                400: `Bad Request`,
-                404: `Not Found`,
-            },
-        });
-    }
-
-    /**
-     * Create Application Shell
-     * @param requestBody Created Application Shell object
-     * @returns ApplicationShell successful operation
-     * @throws ApiError
-     */
-    public static postApplicationShell(
-        requestBody: ApplicationShell,
-    ): CancelablePromise<ApplicationShell> {
-        return __request(OpenAPI, {
-            method: 'POST',
-            url: '/api/applicationshells/',
-            body: requestBody,
-            mediaType: 'application/json',
-            errors: {
-                400: `Bad Request`,
-                404: `Not Found`,
-            },
-        });
-    }
-
-    /**
-     * @returns ApplicationShell OK
-     * @throws ApiError
-     */
-    public static headApplicationShell(): CancelablePromise<ApplicationShell> {
-        return __request(OpenAPI, {
-            method: 'HEAD',
-            url: '/api/applicationshells/',
-            errors: {
-                400: `Bad Request`,
-                404: `Not Found`,
-            },
-        });
-    }
-
-    /**
      * Find application shell by ID
      * Returns a single applicationShell
      * @param id ID of Application Shell
      * @returns Install successful operation
      * @throws ApiError
      */
-    public static findById1(
+    public static findById2(
         id: string,
     ): CancelablePromise<Install> {
         return __request(OpenAPI, {
@@ -81,6 +28,7 @@ export class ApplicationShellService {
             },
             errors: {
                 400: `Invalid ID supplied`,
+                401: `Unauthorized`,
                 404: `ApplicationShell not found`,
             },
         });
@@ -106,6 +54,7 @@ export class ApplicationShellService {
             mediaType: 'application/json',
             errors: {
                 400: `Bad Request`,
+                401: `Unauthorized`,
                 404: `Not Found`,
             },
         });
@@ -127,6 +76,7 @@ export class ApplicationShellService {
             },
             errors: {
                 400: `Bad Request`,
+                401: `Unauthorized`,
                 404: `Not Found`,
             },
         });
@@ -152,6 +102,63 @@ export class ApplicationShellService {
             mediaType: 'application/json',
             errors: {
                 400: `Bad Request`,
+                401: `Unauthorized`,
+                404: `Not Found`,
+            },
+        });
+    }
+
+    /**
+     * Get Application Shell
+     * Returns a Application Shell collection
+     * @returns ApplicationShell OK
+     * @throws ApiError
+     */
+    public static findApplicationShells(): CancelablePromise<Array<ApplicationShell>> {
+        return __request(OpenAPI, {
+            method: 'GET',
+            url: '/api/applicationshells/',
+            errors: {
+                400: `Bad Request`,
+                401: `Unauthorized`,
+                404: `Not Found`,
+            },
+        });
+    }
+
+    /**
+     * Create Application Shell
+     * @param requestBody Created Application Shell object
+     * @returns ApplicationShell successful operation
+     * @throws ApiError
+     */
+    public static postApplicationShell(
+        requestBody: ApplicationShell,
+    ): CancelablePromise<ApplicationShell> {
+        return __request(OpenAPI, {
+            method: 'POST',
+            url: '/api/applicationshells/',
+            body: requestBody,
+            mediaType: 'application/json',
+            errors: {
+                400: `Bad Request`,
+                401: `Unauthorized`,
+                404: `Not Found`,
+            },
+        });
+    }
+
+    /**
+     * @returns ApplicationShell OK
+     * @throws ApiError
+     */
+    public static headApplicationShell(): CancelablePromise<ApplicationShell> {
+        return __request(OpenAPI, {
+            method: 'HEAD',
+            url: '/api/applicationshells/',
+            errors: {
+                400: `Bad Request`,
+                401: `Unauthorized`,
                 404: `Not Found`,
             },
         });

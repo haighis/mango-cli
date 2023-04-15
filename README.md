@@ -23,17 +23,20 @@ which allows you to view the JS Client Model and Services.
 `./bin/run get Application` 
 `./bin/run create Application --file application.yaml`
 
+# Step 1 - Register, Login, Define Contexts
+
+`./bin/run create Context --file sample_yamls/context.yaml`
+
+# Step 2 - Set Credentials for Contexts
+
 ## Supplying Flags
 `./bin/run create Application --file application.yaml`
 
 ## Create Application Shell
 `./bin/run create ApplicationShell -f sample_yamls/application_shell.yaml`
-
 # TODO
 - cli create application_shell command with code generation for angular using a basic foundation that is the default foundation in mango that allows an application shell to load a single application.
 - cli create application_shell command with code generation for angular using a foundation_id that gets the foundation template
-- move mango api server js client to its own github source code repo in a new js project
-- enable yaml to json for apply/create command in mango cli
 - enable mango configure to call setup Mango Api Server Java Application
 ## Mango Configure
 ### Login 
@@ -76,7 +79,7 @@ $ npm install -g mango-platform-cli
 $ mango-cli COMMAND
 running command...
 $ mango-cli (--version)
-mango-platform-cli/0.0.2 darwin-x64 node-v16.13.0
+mango-platform-cli/0.0.3 darwin-x64 node-v16.13.0
 $ mango-cli --help [COMMAND]
 USAGE
   $ mango-cli COMMAND
@@ -122,7 +125,7 @@ EXAMPLES
   $ mango-cli configure
 ```
 
-_See code: [dist/commands/configure.ts](https://github.com/haighis/mango-cli/blob/v0.0.2/dist/commands/configure.ts)_
+_See code: [dist/commands/configure.ts](https://github.com/haighis/mango-cli/blob/v0.0.3/dist/commands/configure.ts)_
 
 ## `mango-cli create [KIND]`
 
@@ -145,7 +148,7 @@ EXAMPLES
   $ mango-cli create -f path/file.yaml
 ```
 
-_See code: [dist/commands/create.ts](https://github.com/haighis/mango-cli/blob/v0.0.2/dist/commands/create.ts)_
+_See code: [dist/commands/create.ts](https://github.com/haighis/mango-cli/blob/v0.0.3/dist/commands/create.ts)_
 
 ## `mango-cli get [KIND]`
 
@@ -182,7 +185,7 @@ EXAMPLES
   $ mango-cli get applications
 ```
 
-_See code: [dist/commands/get.ts](https://github.com/haighis/mango-cli/blob/v0.0.2/dist/commands/get.ts)_
+_See code: [dist/commands/get.ts](https://github.com/haighis/mango-cli/blob/v0.0.3/dist/commands/get.ts)_
 
 ## `mango-cli hello PERSON`
 
@@ -206,7 +209,7 @@ EXAMPLES
   hello friend from oclif! (./src/commands/hello/index.ts)
 ```
 
-_See code: [dist/commands/hello/index.ts](https://github.com/haighis/mango-cli/blob/v0.0.2/dist/commands/hello/index.ts)_
+_See code: [dist/commands/hello/index.ts](https://github.com/haighis/mango-cli/blob/v0.0.3/dist/commands/hello/index.ts)_
 
 ## `mango-cli hello world`
 

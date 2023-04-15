@@ -16,7 +16,7 @@ export class KindService {
      * @returns Kind successful operation
      * @throws ApiError
      */
-    public static findById5(
+    public static findById(
         id: string,
     ): CancelablePromise<Kind> {
         return __request(OpenAPI, {
@@ -27,6 +27,7 @@ export class KindService {
             },
             errors: {
                 400: `Invalid ID supplied`,
+                401: `Unauthorized`,
                 404: `kind not found`,
             },
         });
@@ -52,6 +53,7 @@ export class KindService {
             mediaType: 'application/json',
             errors: {
                 400: `Bad Request`,
+                401: `Unauthorized`,
                 404: `Not Found`,
             },
         });
@@ -73,6 +75,7 @@ export class KindService {
             },
             errors: {
                 400: `Bad Request`,
+                401: `Unauthorized`,
                 404: `Not Found`,
             },
         });
@@ -98,6 +101,7 @@ export class KindService {
             mediaType: 'application/json',
             errors: {
                 400: `Bad Request`,
+                401: `Unauthorized`,
                 404: `Not Found`,
             },
         });
@@ -115,6 +119,7 @@ export class KindService {
             url: '/api/kinds/',
             errors: {
                 400: `Bad Request`,
+                401: `Unauthorized`,
                 404: `Not Found`,
             },
         });
@@ -136,6 +141,7 @@ export class KindService {
             mediaType: 'application/json',
             errors: {
                 400: `Bad Request`,
+                401: `Unauthorized`,
                 404: `Not Found`,
             },
         });
@@ -151,6 +157,7 @@ export class KindService {
             url: '/api/kinds/',
             errors: {
                 400: `Bad Request`,
+                401: `Unauthorized`,
                 404: `Not Found`,
             },
         });
