@@ -1,5 +1,6 @@
 import {Args, Command, Flags} from '@oclif/core'
 import inquirer = require('inquirer');
+import { AccountService, OpenAPIConfig } from '../client';
 import { Global } from '../Global';
 
 export default class Register extends Command {
@@ -9,19 +10,25 @@ export default class Register extends Command {
     '<%= config.bin %> <%= command.id %>',
   ]
 
-  // static flags = {
-  //   // flag with a value (-n, --name=VALUE)
-  //   name: Flags.string({char: 'n', description: 'name to print'}),
-  //   // flag with no value (-f, --force)
-  //   force: Flags.boolean({char: 'f'}),
-  // }
-
-  // static args = {
-  //   file: Args.string({description: 'file to read'}),
-  // }
-
   public async run(): Promise<void> {
+    const {args, flags} = await this.parse(Register)
+    const openApiConfig: OpenAPIConfig = {
+      BASE: 'http://localhost:7878',
+      VERSION: '1.0',
+      WITH_CREDENTIALS: false,
+      CREDENTIALS: 'include',
+      TOKEN: undefined,
+      USERNAME: undefined,
+      PASSWORD: undefined,
+      HEADERS: undefined,
+      ENCODE_PATH: undefined,
+  };
     const questions = [
+      {
+        type: 'input',
+        message: 'Enter email:',
+        name: 'email',
+      },
       {
         type: 'input',
         message: 'Enter username:',
@@ -39,22 +46,21 @@ export default class Register extends Command {
         validate: Global.requireLetterAndNumber,
       },
     ];
-    let userContext = "";
-    let userSecretKey = "";
     const prompt : any = await inquirer.prompt(questions)
-    .then(answers => {
+    .then(async answers => {
       let res: any = answers;
-      // userContext = res.context[0];
-      // userSecretKey = res.SecretKey;
-      //credentialApi.add(userSecretKey,userContext);
-      this.log(`account ${res.username} ${res.password} ${res.confirmPassword}`);
+      let registerResult: any = await new AccountService(openApiConfig!).register(
+        { 
+          email: res.email,
+          username: res.username, 
+          password: res.password,
+          roles: []
+        });
+        if(registerResult) {
+          this.log(`Account ${res.email} with username ${res.username} successfully registered.\n`);
+        } else {
+          this.log(`Account not registered:\n ${registerResult}`);
+        }
     });
-    // const {args, flags} = await this.parse(Register)
-
-    // const name = flags.name ?? 'world'
-    // this.log(`hello ${name} from /Users/johnhaigh/Projects/mango-platform/cli/mango-cli/src/commands/register.ts`)
-    // if (args.file && flags.force) {
-    //   this.log(`you input --force and --file: ${args.file}`)
-    // }
   }
 }

@@ -6,8 +6,9 @@ import type { Kind } from '../models/Kind';
 import type { CancelablePromise } from '../core/CancelablePromise';
 import { OpenAPI } from '../core/OpenAPI';
 import { request as __request } from '../core/request';
+import { BaseService } from './BaseService';
 
-export class KindService {
+export class KindService extends BaseService {
 
     /**
      * Find Kind by ID
@@ -16,10 +17,10 @@ export class KindService {
      * @returns Kind successful operation
      * @throws ApiError
      */
-    public static findById(
+    public  findById(
         id: string,
     ): CancelablePromise<Kind> {
-        return __request(OpenAPI, {
+        return __request(this.openApiOverride, {
             method: 'GET',
             url: '/api/kinds/{id}',
             path: {
@@ -39,11 +40,11 @@ export class KindService {
      * @returns Kind OK
      * @throws ApiError
      */
-    public static updateKind(
+    public  updateKind(
         id: string,
         requestBody: Kind,
     ): CancelablePromise<Kind> {
-        return __request(OpenAPI, {
+        return __request(this.openApiOverride, {
             method: 'PUT',
             url: '/api/kinds/{id}',
             path: {
@@ -64,10 +65,10 @@ export class KindService {
      * @returns string OK
      * @throws ApiError
      */
-    public static deleteKind(
+    public  deleteKind(
         id: string,
     ): CancelablePromise<string> {
-        return __request(OpenAPI, {
+        return __request(this.openApiOverride, {
             method: 'DELETE',
             url: '/api/kinds/{id}',
             path: {
@@ -87,11 +88,11 @@ export class KindService {
      * @returns Kind OK
      * @throws ApiError
      */
-    public static patchKind(
+    public  patchKind(
         id: string,
         requestBody: Kind,
     ): CancelablePromise<Kind> {
-        return __request(OpenAPI, {
+        return __request(this.openApiOverride, {
             method: 'PATCH',
             url: '/api/kinds/{id}',
             path: {
@@ -113,8 +114,8 @@ export class KindService {
      * @returns Kind OK
      * @throws ApiError
      */
-    public static findKinds(): CancelablePromise<Array<Kind>> {
-        return __request(OpenAPI, {
+    public  findKinds(): CancelablePromise<Array<Kind>> {
+        return __request(this.openApiOverride, {
             method: 'GET',
             url: '/api/kinds/',
             errors: {
@@ -131,10 +132,10 @@ export class KindService {
      * @returns Kind successful operation
      * @throws ApiError
      */
-    public static postKind(
+    public  postKind(
         requestBody: Kind,
     ): CancelablePromise<Kind> {
-        return __request(OpenAPI, {
+        return __request(this.openApiOverride, {
             method: 'POST',
             url: '/api/kinds/',
             body: requestBody,
@@ -151,8 +152,8 @@ export class KindService {
      * @returns Kind OK
      * @throws ApiError
      */
-    public static headKind(): CancelablePromise<Kind> {
-        return __request(OpenAPI, {
+    public  headKind(): CancelablePromise<Kind> {
+        return __request(this.openApiOverride, {
             method: 'HEAD',
             url: '/api/kinds/',
             errors: {

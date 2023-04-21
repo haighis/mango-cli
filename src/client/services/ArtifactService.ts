@@ -6,8 +6,9 @@ import type { Artifact } from '../models/Artifact';
 import type { CancelablePromise } from '../core/CancelablePromise';
 import { OpenAPI } from '../core/OpenAPI';
 import { request as __request } from '../core/request';
+import { BaseService } from './BaseService';
 
-export class ArtifactService {
+export class ArtifactService extends BaseService {
 
     /**
      * Find Artifact by ID
@@ -16,10 +17,10 @@ export class ArtifactService {
      * @returns Artifact successful operation
      * @throws ApiError
      */
-    public static findById4(
+    public  findById3(
         id: string,
     ): CancelablePromise<Artifact> {
-        return __request(OpenAPI, {
+        return __request(this.openApiOverride, {
             method: 'GET',
             url: '/api/artifacts/{id}',
             path: {
@@ -39,11 +40,11 @@ export class ArtifactService {
      * @returns Artifact OK
      * @throws ApiError
      */
-    public static updateArtifact(
+    public  updateArtifact(
         id: string,
         requestBody: Artifact,
     ): CancelablePromise<Artifact> {
-        return __request(OpenAPI, {
+        return __request(this.openApiOverride, {
             method: 'PUT',
             url: '/api/artifacts/{id}',
             path: {
@@ -64,10 +65,10 @@ export class ArtifactService {
      * @returns string OK
      * @throws ApiError
      */
-    public static deleteArtifact(
+    public  deleteArtifact(
         id: string,
     ): CancelablePromise<string> {
-        return __request(OpenAPI, {
+        return __request(this.openApiOverride, {
             method: 'DELETE',
             url: '/api/artifacts/{id}',
             path: {
@@ -87,11 +88,11 @@ export class ArtifactService {
      * @returns Artifact OK
      * @throws ApiError
      */
-    public static patchArtifact(
+    public  patchArtifact(
         id: string,
         requestBody: Artifact,
     ): CancelablePromise<Artifact> {
-        return __request(OpenAPI, {
+        return __request(this.openApiOverride, {
             method: 'PATCH',
             url: '/api/artifacts/{id}',
             path: {
@@ -113,8 +114,8 @@ export class ArtifactService {
      * @returns Artifact OK
      * @throws ApiError
      */
-    public static findArtifacts(): CancelablePromise<Array<Artifact>> {
-        return __request(OpenAPI, {
+    public  findArtifacts(): CancelablePromise<Array<Artifact>> {
+        return __request(this.openApiOverride, {
             method: 'GET',
             url: '/api/artifacts/',
             errors: {
@@ -131,10 +132,10 @@ export class ArtifactService {
      * @returns Artifact successful operation
      * @throws ApiError
      */
-    public static postArtifact(
+    public  postArtifact(
         requestBody: Artifact,
     ): CancelablePromise<Artifact> {
-        return __request(OpenAPI, {
+        return __request(this.openApiOverride, {
             method: 'POST',
             url: '/api/artifacts/',
             body: requestBody,
@@ -151,8 +152,8 @@ export class ArtifactService {
      * @returns Artifact OK
      * @throws ApiError
      */
-    public static headArtifact(): CancelablePromise<Artifact> {
-        return __request(OpenAPI, {
+    public  headArtifact(): CancelablePromise<Artifact> {
+        return __request(this.openApiOverride, {
             method: 'HEAD',
             url: '/api/artifacts/',
             errors: {

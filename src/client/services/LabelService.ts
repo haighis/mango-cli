@@ -6,8 +6,9 @@ import type { Label } from '../models/Label';
 import type { CancelablePromise } from '../core/CancelablePromise';
 import { OpenAPI } from '../core/OpenAPI';
 import { request as __request } from '../core/request';
+import { BaseService } from './BaseService';
 
-export class LabelService {
+export class LabelService extends BaseService {
 
     /**
      * Get Label
@@ -15,8 +16,8 @@ export class LabelService {
      * @returns Label OK
      * @throws ApiError
      */
-    public static findLabels(): CancelablePromise<Array<Label>> {
-        return __request(OpenAPI, {
+    public  findLabels(): CancelablePromise<Array<Label>> {
+        return __request(this.openApiOverride, {
             method: 'GET',
             url: '/api/labels/',
             errors: {
@@ -33,10 +34,10 @@ export class LabelService {
      * @returns Label successful operation
      * @throws ApiError
      */
-    public static postLabel(
+    public  postLabel(
         requestBody: Label,
     ): CancelablePromise<Label> {
-        return __request(OpenAPI, {
+        return __request(this.openApiOverride, {
             method: 'POST',
             url: '/api/labels/',
             body: requestBody,
@@ -53,8 +54,8 @@ export class LabelService {
      * @returns Label OK
      * @throws ApiError
      */
-    public static headLabel(): CancelablePromise<Label> {
-        return __request(OpenAPI, {
+    public  headLabel(): CancelablePromise<Label> {
+        return __request(this.openApiOverride, {
             method: 'HEAD',
             url: '/api/labels/',
             errors: {
@@ -72,10 +73,10 @@ export class LabelService {
      * @returns Label successful operation
      * @throws ApiError
      */
-    public static findById1(
+    public  findById5(
         id: string,
     ): CancelablePromise<Label> {
-        return __request(OpenAPI, {
+        return __request(this.openApiOverride, {
             method: 'GET',
             url: '/api/labels/{id}',
             path: {
@@ -95,11 +96,11 @@ export class LabelService {
      * @returns Label OK
      * @throws ApiError
      */
-    public static updateLabel(
+    public  updateLabel(
         id: string,
         requestBody: Label,
     ): CancelablePromise<Label> {
-        return __request(OpenAPI, {
+        return __request(this.openApiOverride, {
             method: 'PUT',
             url: '/api/labels/{id}',
             path: {
@@ -120,10 +121,10 @@ export class LabelService {
      * @returns string OK
      * @throws ApiError
      */
-    public static deleteLabel(
+    public  deleteLabel(
         id: string,
     ): CancelablePromise<string> {
-        return __request(OpenAPI, {
+        return __request(this.openApiOverride, {
             method: 'DELETE',
             url: '/api/labels/{id}',
             path: {
@@ -143,11 +144,11 @@ export class LabelService {
      * @returns Label OK
      * @throws ApiError
      */
-    public static patchLabel(
+    public  patchLabel(
         id: string,
         requestBody: Label,
     ): CancelablePromise<Label> {
-        return __request(OpenAPI, {
+        return __request(this.openApiOverride, {
             method: 'PATCH',
             url: '/api/labels/{id}',
             path: {

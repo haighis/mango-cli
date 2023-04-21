@@ -11,13 +11,11 @@ import { Application,
   OpenAPIConfig, 
   ShellType, 
   ShellTypeService} from '../client/index'
-import contextApi from '../localdb/contextApi';  
 import { Global } from '../Global'
-import Context from '../localdb/Context';
-import Credential from '../localdb/Credential';
 import { head } from 'superagent';
-import credentialApi from '../localdb/credentialApi';
-
+import AuthContext from '../AuthContext';
+import Context, { ContextInput } from '../db/models/Context';
+import Credential, { CredentialInput } from '../db/models/Credential';
 //import {ApplicationInstallApi} from 'apps-js-client/apps'
 //import { Application, Install, ApplicationService, ApplicationShell, ApplicationShellService, CancelablePromise, Kind, KindService } from '../client'
 export default class Get extends Command {
@@ -58,72 +56,76 @@ export default class Get extends Command {
     let isValid = wellKnownKinds.indexOf(kind!) > -1;
     
     // Validate args kind is a well known kind
-    if(!isValid) {
+    if(!isValid) { // TODO allow developers to add their own Kinds which will be read from kind API
       this.warn(new Error(`Kind provided is not a well known Mango Kind: ${args.kind}`))
     }
 
-    let allContexts = contextApi.list();
-    let allCredentials = credentialApi.list();
+    let authConext = new AuthContext();
+    let openApiConfig = await authConext.buildOpenApiConfig();
+    if(!openApiConfig) {
+      return;
+    }
+    // let allContexts = contextApi.list();
+    // let allCredentials = credentialApi.list();
 
-    let getCurrentContext = allContexts.find(x => x.defaultContext == true);
-    if(getCurrentContext == undefined) {
-      this.warn(new Error(`No Default Context is defined. Please create a Default Context before proceeding.`));
-      return;
-    }
-    let getCurrentCredentials = allCredentials.find(x => x.context == getCurrentContext!.context);
-    if(getCurrentCredentials == undefined) {
-      this.warn(new Error(`No Credentials defined for Default Context. Please retreive a secret key and specify a credential for Default Context before proceeding.`));
-      return;
-    }
-    let headers: Record<string,string> = { 'x-api-key': getCurrentCredentials!.secretKey}
-    const openApiConfig: OpenAPIConfig = {
-        BASE: getCurrentContext!.apiServerUrl,
-        VERSION: '1.0',
-        WITH_CREDENTIALS: false,
-        CREDENTIALS: 'include',
-        TOKEN: undefined,
-        USERNAME: undefined,
-        PASSWORD: undefined,
-        HEADERS: headers,
-        ENCODE_PATH: undefined,
-    };
+    // let getCurrentContext = allContexts.find(x => x.defaultContext == true);
+    // if(getCurrentContext == undefined) {
+    //   this.warn(new Error(`No Default Context is defined. Please create a Default Context before proceeding.`));
+    //   return;
+    // }
+    // let getCurrentCredentials = allCredentials.find(x => x.context == getCurrentContext!.context);
+    // if(getCurrentCredentials == undefined) {
+    //   this.warn(new Error(`No Credentials defined for Default Context. Please retreive a secret key and specify a credential for Default Context before proceeding.`));
+    //   return;
+    // }
+    // let headers: Record<string,string> = { 'x-api-key': getCurrentCredentials!.secretKey}
+    // const openApiConfig: OpenAPIConfig = {
+    //     BASE: getCurrentContext!.apiServerUrl,
+    //     VERSION: '1.0',
+    //     WITH_CREDENTIALS: false,
+    //     CREDENTIALS: 'include',
+    //     TOKEN: undefined,
+    //     USERNAME: undefined,
+    //     PASSWORD: undefined,
+    //     HEADERS: headers,
+    //     ENCODE_PATH: undefined,
+    // };
 
     let uiTableColumns =  {}
     // output in table
     if (kind) {
       switch(kind) {
         case "Credential": 
-        apiServerResult = credentialApi.list() as Credential[];
-        uiTableColumns = {context: { header: 'Context'}, secretKey: { header: 'Secret Key'}}      
+        apiServerResult = await Credential.findAll() as CredentialInput[];
+        uiTableColumns = { consumerId: { header: 'Consumer Id'}, context: { header: 'Context'}, secretKey: { header: 'Secret Key'}}      
         break;
         case "Context": 
-          apiServerResult = contextApi.list() as Context[];
+          apiServerResult = await Context.findAll() as ContextInput[];
           uiTableColumns = {context: { header: 'Context'}, apiServerUrl: { header: 'API Server Url'}, defaultContext: { header: 'Is Default' } }      
           break;
         case "ShellType":
           // only show active applications
           // user can pass --all to show all
-          apiServerResult = await ShellTypeService.findShellTypes() as ShellType[];
+          apiServerResult = await new ShellTypeService(openApiConfig).findShellTypes() as ShellType[];
           uiTableColumns = {id: { header: 'Identifer'}, classification: { header: 'Classification'}, subClassification: { header: 'Sub Classification'}, fileReference: { header: 'File Ref'}, description: {header: "Desc"} }      
           break;
         case "Application":
             // only show active applications
             // user can pass --all to show all
-            let appService: ApplicationService = new ApplicationService(openApiConfig);
-            apiServerResult = await appService.findApplications() as Application[]; 
+            apiServerResult = await new ApplicationService(openApiConfig).findApplications() as Application[]; 
             //apiServerResult = await ApplicationService.findApplications() as Application[];
             uiTableColumns = {applicationName: { header: 'Name'}, applicationUrl: { header: 'Url'}, installedInstanceCode: { header: 'Instance Code'} }      
             break;  
         case "ApplicationShell":
-          apiServerResult = await ApplicationShellService.findApplicationShells() as ApplicationShell[];
+          apiServerResult = await new ApplicationShellService(openApiConfig).findApplicationShells() as ApplicationShell[];
           uiTableColumns = {applicationShellName: { header: 'Name'}, shellTypeId: { header: 'Shell Type Identifier'},  installedInstanceCode: { header: 'Instance Code'} }      
           break;
         case "Install":
-          apiServerResult = await InstallService.findApplicationInstalls() as Install[];
+          apiServerResult = await new InstallService(openApiConfig).findApplicationInstalls() as Install[];
           uiTableColumns = {created: { header: 'Created'}, uri: { header: 'Uri'}, code: { header: 'Code'}, status: {header: 'Status'} }      
           break;
         case "Kind":
-          apiServerResult = await KindService.findKinds() as Kind[];
+          apiServerResult = await new KindService(openApiConfig).findKinds() as Kind[];
           uiTableColumns = {name: { header: 'Name'}, description: { header: 'Description'} }      
           break;
         default:

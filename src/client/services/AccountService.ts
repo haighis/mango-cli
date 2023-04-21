@@ -2,26 +2,28 @@
 /* tslint:disable */
 /* eslint-disable */
 import type { LoginRequest } from '../models/LoginRequest';
-import type { User } from '../models/User';
 import type { UserDTO } from '../models/UserDTO';
 
 import type { CancelablePromise } from '../core/CancelablePromise';
 import { OpenAPI } from '../core/OpenAPI';
 import { request as __request } from '../core/request';
+import { BaseService } from './BaseService';
 
-export class UserApiControllerService {
+export class AccountService extends BaseService {
 
     /**
+     * Authenticate account by username and password
+     * Returns a single object containing token.
      * @param requestBody
-     * @returns any OK
+     * @returns LoginRequest successful operation
      * @throws ApiError
      */
-    public static login(
+    public login(
         requestBody: LoginRequest,
-    ): CancelablePromise<any> {
-        return __request(OpenAPI, {
+    ): CancelablePromise<LoginRequest> {
+        return __request(this.openApiOverride, {
             method: 'POST',
-            url: '/api/auth/login',
+            url: '/api/account/login',
             body: requestBody,
             mediaType: 'application/json',
             errors: {
@@ -33,34 +35,20 @@ export class UserApiControllerService {
     }
 
     /**
+     * Register account by UserDto
+     * Returns a single user object containing the created user.
      * @param requestBody
-     * @returns User OK
+     * @returns UserDTO successful operation
      * @throws ApiError
      */
-    public static adduser(
+    public  register(
         requestBody: UserDTO,
-    ): CancelablePromise<User> {
-        return __request(OpenAPI, {
+    ): CancelablePromise<UserDTO> {
+        return __request(this.openApiOverride, {
             method: 'POST',
-            url: '/api/auth/register',
+            url: '/api/account/register',
             body: requestBody,
             mediaType: 'application/json',
-            errors: {
-                400: `Bad Request`,
-                401: `Unauthorized`,
-                404: `Not Found`,
-            },
-        });
-    }
-
-    /**
-     * @returns UserDTO OK
-     * @throws ApiError
-     */
-    public static getAll(): CancelablePromise<Array<UserDTO>> {
-        return __request(OpenAPI, {
-            method: 'GET',
-            url: '/api/user',
             errors: {
                 400: `Bad Request`,
                 401: `Unauthorized`,

@@ -1,4 +1,4 @@
-# Mango CLI
+# Mango Platform CLI
 
 ## Build
 
@@ -9,6 +9,8 @@
 `./bin/run`
 
 ## Publish
+`npm run build`
+`npm version`
 `npm publish`
 
 ## Generate Mango Api Server JS Client
@@ -16,32 +18,32 @@
 `npm run generate-client` will create the Mango Api Server JS Client at the location `src\test\client`
 which allows you to view the JS Client Model and Services.
 - Copy the Mango Api Server JS Client from `src\test\client` to its final resting place at `src\client`
-- TODO move the Mango Api Server JS Client so some other sensible location
-
 ## Supplying Commands
 
-`./bin/run get Application` 
-`./bin/run create Application --file application.yaml`
+`mango-cli get Application` 
+`mango-cli create Application --file application.yaml`
 
-# Step 1 - Register, Login, Define Contexts
-
-`./bin/run create Context --file sample_yamls/context.yaml`
-
-# Step 2 - Set Credentials for Contexts
-
+# Step 1 - Initialize Mango Platform API Server & Mango  Platform CLI
+`mango-cli setup`
+# Step 2 - Register, Login
+`mango-cli register`
+`mango-cli login`
+# Step 3 - Set Credentials for Contexts
+`mango-cli configure`
+# Quick setup for Development
+`mango-cli configure --simple `
 ## Supplying Flags
 `./bin/run create Application --file application.yaml`
-
+## Create Context
+`./bin/run create Context --file sample_yamls/context.yaml`
 ## Create Application Shell
 `./bin/run create ApplicationShell -f sample_yamls/application_shell.yaml`
 # TODO
 - cli create application_shell command with code generation for angular using a basic foundation that is the default foundation in mango that allows an application shell to load a single application.
 - cli create application_shell command with code generation for angular using a foundation_id that gets the foundation template
 - enable mango configure to call setup Mango Api Server Java Application
-## Mango Configure
-### Login 
-- use pupeteer to open a browser and ask the user to login
 
+# npm library troubleshooting
 Global libraries
 You can run npm list -g to see which global libraries are installed and where they're located. Use npm list -g | head -1 for truncated output showing just the path. If you want to display only main packages not its sub-packages which installs along with it - you can use - npm list --depth=0 which will show all packages and for getting only globally installed packages, just add -g i.e. npm list -g --depth=0.
 
@@ -68,7 +70,10 @@ npm install pm2 - pm2 will be installed locally. It will then typically be found
 
 <!-- toc -->
 * [Mango CLI](#mango-cli)
+* [Step 1 - Register, Login, Define Contexts](#step-1---register-login-define-contexts)
+* [Step 2 - Set Credentials for Contexts](#step-2---set-credentials-for-contexts)
 * [TODO](#todo)
+* [Getting Started with Mango Platform CLI](#getting-started-with-mango-platform-cli)
 * [Usage](#usage)
 * [Commands](#commands)
 <!-- tocstop -->
@@ -79,7 +84,7 @@ $ npm install -g mango-platform-cli
 $ mango-cli COMMAND
 running command...
 $ mango-cli (--version)
-mango-platform-cli/0.0.3 darwin-x64 node-v16.13.0
+mango-platform-cli/0.0.5 darwin-x64 node-v16.13.0
 $ mango-cli --help [COMMAND]
 USAGE
   $ mango-cli COMMAND
@@ -88,12 +93,14 @@ USAGE
 <!-- usagestop -->
 # Commands
 <!-- commands -->
-* [`mango-cli configure [FILE]`](#mango-cli-configure-file)
+* [`mango-cli configure`](#mango-cli-configure)
+* [`mango-cli configuredev`](#mango-cli-configuredev)
 * [`mango-cli create [KIND]`](#mango-cli-create-kind)
 * [`mango-cli get [KIND]`](#mango-cli-get-kind)
 * [`mango-cli hello PERSON`](#mango-cli-hello-person)
 * [`mango-cli hello world`](#mango-cli-hello-world)
 * [`mango-cli help [COMMANDS]`](#mango-cli-help-commands)
+* [`mango-cli login [FILE]`](#mango-cli-login-file)
 * [`mango-cli plugins`](#mango-cli-plugins)
 * [`mango-cli plugins:install PLUGIN...`](#mango-cli-pluginsinstall-plugin)
 * [`mango-cli plugins:inspect PLUGIN...`](#mango-cli-pluginsinspect-plugin)
@@ -103,20 +110,20 @@ USAGE
 * [`mango-cli plugins:uninstall PLUGIN...`](#mango-cli-pluginsuninstall-plugin-1)
 * [`mango-cli plugins:uninstall PLUGIN...`](#mango-cli-pluginsuninstall-plugin-2)
 * [`mango-cli plugins update`](#mango-cli-plugins-update)
+* [`mango-cli register`](#mango-cli-register)
+* [`mango-cli setup`](#mango-cli-setup)
 
-## `mango-cli configure [FILE]`
+## `mango-cli configure`
 
 Configure Mango Platform Settings
 
 ```
 USAGE
-  $ mango-cli configure [FILE] [--setup]
-
-ARGUMENTS
-  FILE  file to read
+  $ mango-cli configure [-d] [-s]
 
 FLAGS
-  --setup  Mango System-Initial-Setup
+  -d, --default_data  Insert default development Context called "development" to Mango CLI database.
+  -s, --simple
 
 DESCRIPTION
   Configure Mango Platform Settings
@@ -125,7 +132,28 @@ EXAMPLES
   $ mango-cli configure
 ```
 
-_See code: [dist/commands/configure.ts](https://github.com/haighis/mango-cli/blob/v0.0.3/dist/commands/configure.ts)_
+_See code: [dist/commands/configure.ts](https://github.com/haighis/mango-cli/blob/v0.0.5/dist/commands/configure.ts)_
+
+## `mango-cli configuredev`
+
+Configure Mango Platform Settings
+
+```
+USAGE
+  $ mango-cli configuredev [-d <value>]
+
+FLAGS
+  -d, --default_data=<value>  Insert default data to Mango CLI database. VOLATILE operation. This will delete your
+                              existing configuration and insert a development context.
+
+DESCRIPTION
+  Configure Mango Platform Settings
+
+EXAMPLES
+  $ mango-cli configuredev
+```
+
+_See code: [dist/commands/configuredev.ts](https://github.com/haighis/mango-cli/blob/v0.0.5/dist/commands/configuredev.ts)_
 
 ## `mango-cli create [KIND]`
 
@@ -136,7 +164,7 @@ USAGE
   $ mango-cli create [KIND] [-f <value>]
 
 ARGUMENTS
-  KIND  create
+  KIND  Kind for resource being created.
 
 FLAGS
   -f, --file=<value>  file to read
@@ -148,7 +176,7 @@ EXAMPLES
   $ mango-cli create -f path/file.yaml
 ```
 
-_See code: [dist/commands/create.ts](https://github.com/haighis/mango-cli/blob/v0.0.3/dist/commands/create.ts)_
+_See code: [dist/commands/create.ts](https://github.com/haighis/mango-cli/blob/v0.0.5/dist/commands/create.ts)_
 
 ## `mango-cli get [KIND]`
 
@@ -185,7 +213,7 @@ EXAMPLES
   $ mango-cli get applications
 ```
 
-_See code: [dist/commands/get.ts](https://github.com/haighis/mango-cli/blob/v0.0.3/dist/commands/get.ts)_
+_See code: [dist/commands/get.ts](https://github.com/haighis/mango-cli/blob/v0.0.5/dist/commands/get.ts)_
 
 ## `mango-cli hello PERSON`
 
@@ -209,7 +237,7 @@ EXAMPLES
   hello friend from oclif! (./src/commands/hello/index.ts)
 ```
 
-_See code: [dist/commands/hello/index.ts](https://github.com/haighis/mango-cli/blob/v0.0.3/dist/commands/hello/index.ts)_
+_See code: [dist/commands/hello/index.ts](https://github.com/haighis/mango-cli/blob/v0.0.5/dist/commands/hello/index.ts)_
 
 ## `mango-cli hello world`
 
@@ -246,6 +274,30 @@ DESCRIPTION
 ```
 
 _See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v5.2.8/src/commands/help.ts)_
+
+## `mango-cli login [FILE]`
+
+Mango Platform User Login
+
+```
+USAGE
+  $ mango-cli login [FILE] [-n <value>] [-f]
+
+ARGUMENTS
+  FILE  file to read
+
+FLAGS
+  -f, --force
+  -n, --name=<value>  name to print
+
+DESCRIPTION
+  Mango Platform User Login
+
+EXAMPLES
+  $ mango-cli login
+```
+
+_See code: [dist/commands/login.ts](https://github.com/haighis/mango-cli/blob/v0.0.5/dist/commands/login.ts)_
 
 ## `mango-cli plugins`
 
@@ -479,4 +531,42 @@ FLAGS
 DESCRIPTION
   Update installed plugins.
 ```
+
+## `mango-cli register`
+
+Mango Platform User Registration
+
+```
+USAGE
+  $ mango-cli register
+
+DESCRIPTION
+  Mango Platform User Registration
+
+EXAMPLES
+  $ mango-cli register
+```
+
+_See code: [dist/commands/register.ts](https://github.com/haighis/mango-cli/blob/v0.0.5/dist/commands/register.ts)_
+
+## `mango-cli setup`
+
+describe the command here
+
+```
+USAGE
+  $ mango-cli setup [-r]
+
+FLAGS
+  -r, --recreate_database  Recreate Mango CLI database. VOLATILE operation. This will delete your local Mango Platform
+                           CLI configuration.
+
+DESCRIPTION
+  describe the command here
+
+EXAMPLES
+  $ mango-cli setup
+```
+
+_See code: [dist/commands/setup.ts](https://github.com/haighis/mango-cli/blob/v0.0.5/dist/commands/setup.ts)_
 <!-- commandsstop -->

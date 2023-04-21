@@ -17,7 +17,7 @@ export class ApplicationService extends BaseService {
      * @returns Application successful operation
      * @throws ApiError
      */
-    public findById(
+    public  findById6(
         id: string,
     ): CancelablePromise<Application> {
         return __request(this.openApiOverride, {
@@ -40,7 +40,7 @@ export class ApplicationService extends BaseService {
      * @returns Application OK
      * @throws ApiError
      */
-    public updateApplication(
+    public  updateApplication(
         id: string,
         requestBody: Application,
     ): CancelablePromise<Application> {
@@ -65,7 +65,7 @@ export class ApplicationService extends BaseService {
      * @returns string OK
      * @throws ApiError
      */
-    public deleteApplication(
+    public  deleteApplication(
         id: string,
     ): CancelablePromise<string> {
         return __request(this.openApiOverride, {
@@ -88,7 +88,7 @@ export class ApplicationService extends BaseService {
      * @returns Application OK
      * @throws ApiError
      */
-    public patchApplication(
+    public  patchApplication(
         id: string,
         requestBody: Application,
     ): CancelablePromise<Application> {
@@ -114,7 +114,7 @@ export class ApplicationService extends BaseService {
      * @returns Application OK
      * @throws ApiError
      */
-    public findApplications(): CancelablePromise<Array<Application>> {
+    public  findApplications(): CancelablePromise<Array<Application>> {
         return __request(this.openApiOverride, {
             method: 'GET',
             url: '/api/applications/',
@@ -132,7 +132,7 @@ export class ApplicationService extends BaseService {
      * @returns Application successful operation
      * @throws ApiError
      */
-    public postApplication(
+    public  postApplication(
         requestBody: Application,
     ): CancelablePromise<Application> {
         return __request(this.openApiOverride, {
@@ -152,7 +152,7 @@ export class ApplicationService extends BaseService {
      * @returns Application OK
      * @throws ApiError
      */
-    public headApplication(): CancelablePromise<Application> {
+    public  headApplication(): CancelablePromise<Application> {
         return __request(this.openApiOverride, {
             method: 'HEAD',
             url: '/api/applications/',

@@ -6,8 +6,9 @@ import type { Install } from '../models/Install';
 import type { CancelablePromise } from '../core/CancelablePromise';
 import { OpenAPI } from '../core/OpenAPI';
 import { request as __request } from '../core/request';
+import { BaseService } from './BaseService';
 
-export class InstallService {
+export class InstallService extends BaseService {
 
     /**
      * Find Install by ID
@@ -16,10 +17,10 @@ export class InstallService {
      * @returns Install successful operation
      * @throws ApiError
      */
-    public static findById7(
+    public  findById1(
         id: string,
     ): CancelablePromise<Install> {
-        return __request(OpenAPI, {
+        return __request(this.openApiOverride, {
             method: 'GET',
             url: '/api/installs/{id}',
             path: {
@@ -39,11 +40,11 @@ export class InstallService {
      * @returns Install OK
      * @throws ApiError
      */
-    public static updateApplicationInstall(
+    public  updateApplicationInstall(
         id: string,
         requestBody: Install,
     ): CancelablePromise<Install> {
-        return __request(OpenAPI, {
+        return __request(this.openApiOverride, {
             method: 'PUT',
             url: '/api/installs/{id}',
             path: {
@@ -64,10 +65,10 @@ export class InstallService {
      * @returns string OK
      * @throws ApiError
      */
-    public static deleteApplicationInstall(
+    public  deleteApplicationInstall(
         id: string,
     ): CancelablePromise<string> {
-        return __request(OpenAPI, {
+        return __request(this.openApiOverride, {
             method: 'DELETE',
             url: '/api/installs/{id}',
             path: {
@@ -87,11 +88,11 @@ export class InstallService {
      * @returns Install OK
      * @throws ApiError
      */
-    public static patchApplicationInstall(
+    public  patchApplicationInstall(
         id: string,
         requestBody: Install,
     ): CancelablePromise<Install> {
-        return __request(OpenAPI, {
+        return __request(this.openApiOverride, {
             method: 'PATCH',
             url: '/api/installs/{id}',
             path: {
@@ -113,8 +114,8 @@ export class InstallService {
      * @returns Install OK
      * @throws ApiError
      */
-    public static findApplicationInstalls(): CancelablePromise<Array<Install>> {
-        return __request(OpenAPI, {
+    public  findApplicationInstalls(): CancelablePromise<Array<Install>> {
+        return __request(this.openApiOverride, {
             method: 'GET',
             url: '/api/installs/',
             errors: {
@@ -131,10 +132,10 @@ export class InstallService {
      * @returns Install successful operation
      * @throws ApiError
      */
-    public static postApplicationInstall(
+    public  postApplicationInstall(
         requestBody: Install,
     ): CancelablePromise<Install> {
-        return __request(OpenAPI, {
+        return __request(this.openApiOverride, {
             method: 'POST',
             url: '/api/installs/',
             body: requestBody,
@@ -151,8 +152,8 @@ export class InstallService {
      * @returns Install OK
      * @throws ApiError
      */
-    public static headApplicationInstall(): CancelablePromise<Install> {
-        return __request(OpenAPI, {
+    public  headApplicationInstall(): CancelablePromise<Install> {
+        return __request(this.openApiOverride, {
             method: 'HEAD',
             url: '/api/installs/',
             errors: {

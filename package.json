@@ -1,6 +1,6 @@
 {
   "name": "mango-platform-cli",
-  "version": "0.0.3",
+  "version": "0.0.6",
   "description": "Mango CLI",
   "author": "John Haigh haighis@gmail.com",
   "bin": {
@@ -30,9 +30,16 @@
     "https": "^1.0.0",
     "inquirer": "^6.0.0",
     "js-yaml": "^4.1.0",
+    "mango-platform-cli": "^0.0.4",
     "mangoapiserver_client_sdk_typescript": "github:haighis/mangoapiserver_client_sdk_typescript",
     "openapi-typescript-codegen": "^0.23.0",
-    "superagent": "^8.0.9"
+    "reflect-metadata": "^0.1.13",
+    "sequelize": "^6.31.0",
+    "sequelize-typescript": "^2.1.5",
+    "sqlite3": "^5.1.6",
+    "superagent": "^8.0.9",
+    "typeorm": "^0.3.15",
+    "uuid": "^9.0.0"
   },
   "devDependencies": {
     "@oclif/test": "^2.3.10",
@@ -43,6 +50,7 @@
     "@types/mocha": "^9.0.0",
     "@types/node": "^16.18.14",
     "@types/superagent": "^4.1.16",
+    "@types/uuid": "^9.0.1",
     "chai": "^4",
     "eslint": "^7.32.0",
     "eslint-config-oclif": "^4",
