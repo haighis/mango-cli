@@ -6,8 +6,9 @@ import type { ShellType } from '../models/ShellType';
 import type { CancelablePromise } from '../core/CancelablePromise';
 import { OpenAPI } from '../core/OpenAPI';
 import { request as __request } from '../core/request';
+import { BaseService } from './BaseService';
 
-export class ShellTypeService {
+export class ShellTypeService extends BaseService {
 
     /**
      * Get Shell Type
@@ -15,12 +16,13 @@ export class ShellTypeService {
      * @returns ShellType OK
      * @throws ApiError
      */
-    public static findShellTypes(): CancelablePromise<Array<ShellType>> {
-        return __request(OpenAPI, {
+    public  findShellTypes(): CancelablePromise<Array<ShellType>> {
+        return __request(this.openApiOverride, {
             method: 'GET',
             url: '/api/shelltypes/',
             errors: {
                 400: `Bad Request`,
+                401: `Unauthorized`,
                 404: `Not Found`,
             },
         });
@@ -32,16 +34,17 @@ export class ShellTypeService {
      * @returns ShellType successful operation
      * @throws ApiError
      */
-    public static postShellType(
+    public  postShellType(
         requestBody: ShellType,
     ): CancelablePromise<ShellType> {
-        return __request(OpenAPI, {
+        return __request(this.openApiOverride, {
             method: 'POST',
             url: '/api/shelltypes/',
             body: requestBody,
             mediaType: 'application/json',
             errors: {
                 400: `Bad Request`,
+                401: `Unauthorized`,
                 404: `Not Found`,
             },
         });
@@ -51,12 +54,13 @@ export class ShellTypeService {
      * @returns ShellType OK
      * @throws ApiError
      */
-    public static headShellType(): CancelablePromise<ShellType> {
-        return __request(OpenAPI, {
+    public  headShellType(): CancelablePromise<ShellType> {
+        return __request(this.openApiOverride, {
             method: 'HEAD',
             url: '/api/shelltypes/',
             errors: {
                 400: `Bad Request`,
+                401: `Unauthorized`,
                 404: `Not Found`,
             },
         });
@@ -69,10 +73,10 @@ export class ShellTypeService {
      * @returns ShellType successful operation
      * @throws ApiError
      */
-    public static findById(
+    public  findById(
         id: string,
     ): CancelablePromise<ShellType> {
-        return __request(OpenAPI, {
+        return __request(this.openApiOverride, {
             method: 'GET',
             url: '/api/shelltypes/{id}',
             path: {
@@ -80,6 +84,7 @@ export class ShellTypeService {
             },
             errors: {
                 400: `Invalid ID supplied`,
+                401: `Unauthorized`,
                 404: `shell type not found`,
             },
         });
@@ -91,11 +96,11 @@ export class ShellTypeService {
      * @returns ShellType OK
      * @throws ApiError
      */
-    public static updateShellType(
+    public  updateShellType(
         id: string,
         requestBody: ShellType,
     ): CancelablePromise<ShellType> {
-        return __request(OpenAPI, {
+        return __request(this.openApiOverride, {
             method: 'PUT',
             url: '/api/shelltypes/{id}',
             path: {
@@ -105,6 +110,7 @@ export class ShellTypeService {
             mediaType: 'application/json',
             errors: {
                 400: `Bad Request`,
+                401: `Unauthorized`,
                 404: `Not Found`,
             },
         });
@@ -115,10 +121,10 @@ export class ShellTypeService {
      * @returns string OK
      * @throws ApiError
      */
-    public static deleteShellType(
+    public  deleteShellType(
         id: string,
     ): CancelablePromise<string> {
-        return __request(OpenAPI, {
+        return __request(this.openApiOverride, {
             method: 'DELETE',
             url: '/api/shelltypes/{id}',
             path: {
@@ -126,6 +132,7 @@ export class ShellTypeService {
             },
             errors: {
                 400: `Bad Request`,
+                401: `Unauthorized`,
                 404: `Not Found`,
             },
         });
@@ -137,11 +144,11 @@ export class ShellTypeService {
      * @returns ShellType OK
      * @throws ApiError
      */
-    public static patchShellType(
+    public  patchShellType(
         id: string,
         requestBody: ShellType,
     ): CancelablePromise<ShellType> {
-        return __request(OpenAPI, {
+        return __request(this.openApiOverride, {
             method: 'PATCH',
             url: '/api/shelltypes/{id}',
             path: {
@@ -151,6 +158,7 @@ export class ShellTypeService {
             mediaType: 'application/json',
             errors: {
                 400: `Bad Request`,
+                401: `Unauthorized`,
                 404: `Not Found`,
             },
         });

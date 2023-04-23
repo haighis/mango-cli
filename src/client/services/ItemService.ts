@@ -8,8 +8,9 @@ import type { ItemDto } from '../models/ItemDto';
 import type { CancelablePromise } from '../core/CancelablePromise';
 import { OpenAPI } from '../core/OpenAPI';
 import { request as __request } from '../core/request';
+import { BaseService } from './BaseService';
 
-export class ItemService {
+export class ItemService extends BaseService {
 
     /**
      * Get Item
@@ -17,12 +18,13 @@ export class ItemService {
      * @returns Item OK
      * @throws ApiError
      */
-    public static findItems(): CancelablePromise<Array<Item>> {
-        return __request(OpenAPI, {
+    public  findItems(): CancelablePromise<Array<Item>> {
+        return __request(this.openApiOverride, {
             method: 'GET',
             url: '/api/items/',
             errors: {
                 400: `Bad Request`,
+                401: `Unauthorized`,
                 404: `Not Found`,
             },
         });
@@ -34,16 +36,17 @@ export class ItemService {
      * @returns Item successful operation
      * @throws ApiError
      */
-    public static postItem(
+    public  postItem(
         requestBody: Item,
     ): CancelablePromise<Item> {
-        return __request(OpenAPI, {
+        return __request(this.openApiOverride, {
             method: 'POST',
             url: '/api/items/',
             body: requestBody,
             mediaType: 'application/json',
             errors: {
                 400: `Bad Request`,
+                401: `Unauthorized`,
                 404: `Not Found`,
             },
         });
@@ -53,12 +56,13 @@ export class ItemService {
      * @returns Item OK
      * @throws ApiError
      */
-    public static headItem(): CancelablePromise<Item> {
-        return __request(OpenAPI, {
+    public  headItem(): CancelablePromise<Item> {
+        return __request(this.openApiOverride, {
             method: 'HEAD',
             url: '/api/items/',
             errors: {
                 400: `Bad Request`,
+                401: `Unauthorized`,
                 404: `Not Found`,
             },
         });
@@ -71,10 +75,10 @@ export class ItemService {
      * @returns Item successful operation
      * @throws ApiError
      */
-    public static findById4(
+    public  findById4(
         id: string,
     ): CancelablePromise<Item> {
-        return __request(OpenAPI, {
+        return __request(this.openApiOverride, {
             method: 'GET',
             url: '/api/items/{id}',
             path: {
@@ -82,6 +86,7 @@ export class ItemService {
             },
             errors: {
                 400: `Invalid ID supplied`,
+                401: `Unauthorized`,
                 404: `item not found`,
             },
         });
@@ -93,11 +98,11 @@ export class ItemService {
      * @returns Item OK
      * @throws ApiError
      */
-    public static updateItem(
+    public  updateItem(
         id: string,
         requestBody: Item,
     ): CancelablePromise<Item> {
-        return __request(OpenAPI, {
+        return __request(this.openApiOverride, {
             method: 'PUT',
             url: '/api/items/{id}',
             path: {
@@ -107,6 +112,7 @@ export class ItemService {
             mediaType: 'application/json',
             errors: {
                 400: `Bad Request`,
+                401: `Unauthorized`,
                 404: `Not Found`,
             },
         });
@@ -117,10 +123,10 @@ export class ItemService {
      * @returns string OK
      * @throws ApiError
      */
-    public static deleteItem(
+    public  deleteItem(
         id: string,
     ): CancelablePromise<string> {
-        return __request(OpenAPI, {
+        return __request(this.openApiOverride, {
             method: 'DELETE',
             url: '/api/items/{id}',
             path: {
@@ -128,6 +134,7 @@ export class ItemService {
             },
             errors: {
                 400: `Bad Request`,
+                401: `Unauthorized`,
                 404: `Not Found`,
             },
         });
@@ -139,11 +146,11 @@ export class ItemService {
      * @returns Item OK
      * @throws ApiError
      */
-    public static patchItem(
+    public  patchItem(
         id: string,
         requestBody: Item,
     ): CancelablePromise<Item> {
-        return __request(OpenAPI, {
+        return __request(this.openApiOverride, {
             method: 'PATCH',
             url: '/api/items/{id}',
             path: {
@@ -153,6 +160,7 @@ export class ItemService {
             mediaType: 'application/json',
             errors: {
                 400: `Bad Request`,
+                401: `Unauthorized`,
                 404: `Not Found`,
             },
         });
@@ -165,11 +173,11 @@ export class ItemService {
      * @returns Artifact successful operation
      * @throws ApiError
      */
-    public static addArtifactForItem(
+    public  addArtifactForItem(
         orderId: string,
         requestBody: ItemDto,
     ): CancelablePromise<Artifact> {
-        return __request(OpenAPI, {
+        return __request(this.openApiOverride, {
             method: 'POST',
             url: '/api/items/{orderId}/artifact',
             path: {
@@ -179,6 +187,7 @@ export class ItemService {
             mediaType: 'application/json',
             errors: {
                 400: `Bad Request`,
+                401: `Unauthorized`,
                 404: `Not Found`,
             },
         });

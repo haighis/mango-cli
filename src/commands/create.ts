@@ -8,10 +8,10 @@ import * as superagent from 'superagent';
 import * as admZip from 'adm-zip';
 import { Global } from '../Global'
 import { ApplicationService, ApplicationShell, ApplicationShellService, ShellType, ShellTypeService } from '../client'
-
-// const https = require('https');
-// const fs = require('fs');
-// const path = require('path');
+import AuthContext from '../AuthContext';
+import { OpenAPIConfig } from '../client';
+import { ItemService } from '../client';
+import Context, { ContextInput } from '../db/models/Context';
 
 //const yaml = require('js-yaml');
 
@@ -23,23 +23,21 @@ export default class Create extends Command {
   ]
 
   static flags = {
-    // flag with a value (-n, --file=VALUE)
     file: Flags.string({char: 'f', description: 'file to read'}),
-  //  shell_type_id: Flags.string({long: 'shell_type_id', description: 'Shell Type Identifier'}),
-    // flag with no value (-f, --force)
-    //force: Flags.boolean({char: 'f'}),
   }
 
-  // static args = {
-  //   file: Args.string({description: 'file to read'}),
-  // }
-
   static args = {
-    kind: Args.string({ name: 'create', description: 'create'}),
+    kind: Args.string({ name: 'create', description: 'Kind for resource being created.'}),
   }
 
   public async run(): Promise<void> {
     const {args, flags} = await this.parse(Create)
+    let authConext = new AuthContext();
+    let openApiConfig = await authConext.buildOpenApiConfig();
+    if(openApiConfig == undefined) {
+      return;
+    }
+    // Todo check for user session if the Kind is anything but Context
 
     let wellKnownKinds = Global.WellKnownKinds;
     let kind = args.kind;
@@ -62,18 +60,36 @@ export default class Create extends Command {
   // set installed instance code in code
   if (kind) {
     switch(kind) {
+      case "Context":
+        // Multiple creation support
+        let contexts: ContextInput[] = doc as unknown as ContextInput[];
+          contexts.forEach(async item => {
+            let testInput: ContextInput = { 
+              context: item.context, 
+              loginApiServerUrl: item.loginApiServerUrl,
+              apiGatewayAdminUrl: item.apiGatewayAdminUrl,
+              apiServerUrl: item.apiServerUrl, 
+              isDefaultContext: item.isDefaultContext 
+            }; 
+            await Context.create(testInput);         
+          });
+        break;
       case "Application":
       case "ApplicationShell":
+        // Single creation only
         // Get the shell_type_id flag
         //let appShell: ApplicationShell = doc as unknown as ApplicationShell;
         let appShell: ApplicationShell[] = doc as unknown as ApplicationShell[];
-        this.CreateApplicationShell(appShell);
+        this.CreateApplicationShell(appShell, openApiConfig);
         break;
       case "Install":
       case "ShellType":
+        // Multiple creation support
         let shellTypes: ShellType[] = doc as unknown as ShellType[];
+        //let appService: ApplicationService = new ApplicationService(openApiConfig);
+        let shellTypeService: ShellTypeService = new ShellTypeService(openApiConfig);
         shellTypes.forEach(async item => {
-          await ShellTypeService.postShellType(item);
+          await shellTypeService.postShellType(item);
         });
         break;
       case "Kind":
@@ -82,34 +98,28 @@ export default class Create extends Command {
         // code block
     }
   }
-
+  this.log(`${kind} created @ ${new Date()}`)
   // let apiServerResult = await ApplicationService.postApplication(doc);
   // console.log('res after post ', apiServerResult)
   //   // yaml.loadAll(flags.file, function (doc: any) {
   //   //   console.log(doc);
   //   // });
-
-  //   const name = flags.name ?? 'world'
-  //   this.log(`hello ${name} from /Users/johnhaigh/Projects/mango-platform/cli/mango-cli/src/commands/create.ts`)
-  //   if (args.kind) {
-  //     this.log(`you input --file: ${flags.file} kind ${args.kind} `)
-  //   }
   }
 
-  async CreateApplicationShell(appShell: ApplicationShell[]) {
+  async CreateApplicationShell(appShell: ApplicationShell[], openApiConfig: OpenAPIConfig) {
     // what do we return from this method? errors etc? boolean if success or else 
     // Call mango api server to create app shell and return a instance code
     //console.log(' app shell ', appShell[0].applicationShellTypeId, ' appShell.applicationShellTypeId ', appShell)
     
     // Get App Shell Type by applicationShellTypeId
-    let appShellType: ShellType = await ShellTypeService.findById(appShell[0].shellTypeId);
+    let appShellType: ShellType = await new ShellTypeService(openApiConfig).findById(appShell[0].shellTypeId);
     // let appShell: ApplicationShell = {
     //   applicationShellName: '',
     //   installedInstanceCode: '',
     //   namespace: '',
     //   applicationShellTypeId: 
     // };
-    let appShellCreated: ApplicationShell = await ApplicationShellService.postApplicationShell(appShell[0]);
+    let appShellCreated: ApplicationShell = await new ApplicationShellService(openApiConfig).postApplicationShell(appShell[0]);
     //console.log('shell type ', appShellType);
     // Get App Shell Zip. 
     //this.downloadFile(appShellType.fileReference);
@@ -163,21 +173,6 @@ export default class Create extends Command {
     
     this.log(`No entries`);  
 
-
     // Copy to user current location
   }
-
-  downloadFile(url: string) {
-        const filename = path.basename(url);
-    
-        http.get(url, (res) => {
-            const fileStream = fs.createWriteStream(filename);
-            res.pipe(fileStream);
-    
-            fileStream.on('finish', () => {
-                fileStream.close();
-                console.log('Download finished')
-            });
-        })
-    }
 }

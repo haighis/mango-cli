@@ -6,61 +6,9 @@ import type { Artifact } from '../models/Artifact';
 import type { CancelablePromise } from '../core/CancelablePromise';
 import { OpenAPI } from '../core/OpenAPI';
 import { request as __request } from '../core/request';
+import { BaseService } from './BaseService';
 
-export class ArtifactService {
-
-    /**
-     * Get Artifact
-     * Returns a Artifact collection
-     * @returns Artifact OK
-     * @throws ApiError
-     */
-    public static findArtifacts(): CancelablePromise<Array<Artifact>> {
-        return __request(OpenAPI, {
-            method: 'GET',
-            url: '/api/artifacts/',
-            errors: {
-                400: `Bad Request`,
-                404: `Not Found`,
-            },
-        });
-    }
-
-    /**
-     * Create Artifact
-     * @param requestBody Created Artifact object
-     * @returns Artifact successful operation
-     * @throws ApiError
-     */
-    public static postArtifact(
-        requestBody: Artifact,
-    ): CancelablePromise<Artifact> {
-        return __request(OpenAPI, {
-            method: 'POST',
-            url: '/api/artifacts/',
-            body: requestBody,
-            mediaType: 'application/json',
-            errors: {
-                400: `Bad Request`,
-                404: `Not Found`,
-            },
-        });
-    }
-
-    /**
-     * @returns Artifact OK
-     * @throws ApiError
-     */
-    public static headArtifact(): CancelablePromise<Artifact> {
-        return __request(OpenAPI, {
-            method: 'HEAD',
-            url: '/api/artifacts/',
-            errors: {
-                400: `Bad Request`,
-                404: `Not Found`,
-            },
-        });
-    }
+export class ArtifactService extends BaseService {
 
     /**
      * Find Artifact by ID
@@ -69,10 +17,10 @@ export class ArtifactService {
      * @returns Artifact successful operation
      * @throws ApiError
      */
-    public static findById2(
+    public  findById3(
         id: string,
     ): CancelablePromise<Artifact> {
-        return __request(OpenAPI, {
+        return __request(this.openApiOverride, {
             method: 'GET',
             url: '/api/artifacts/{id}',
             path: {
@@ -80,6 +28,7 @@ export class ArtifactService {
             },
             errors: {
                 400: `Invalid ID supplied`,
+                401: `Unauthorized`,
                 404: `artifact not found`,
             },
         });
@@ -91,11 +40,11 @@ export class ArtifactService {
      * @returns Artifact OK
      * @throws ApiError
      */
-    public static updateArtifact(
+    public  updateArtifact(
         id: string,
         requestBody: Artifact,
     ): CancelablePromise<Artifact> {
-        return __request(OpenAPI, {
+        return __request(this.openApiOverride, {
             method: 'PUT',
             url: '/api/artifacts/{id}',
             path: {
@@ -105,6 +54,7 @@ export class ArtifactService {
             mediaType: 'application/json',
             errors: {
                 400: `Bad Request`,
+                401: `Unauthorized`,
                 404: `Not Found`,
             },
         });
@@ -115,10 +65,10 @@ export class ArtifactService {
      * @returns string OK
      * @throws ApiError
      */
-    public static deleteArtifact(
+    public  deleteArtifact(
         id: string,
     ): CancelablePromise<string> {
-        return __request(OpenAPI, {
+        return __request(this.openApiOverride, {
             method: 'DELETE',
             url: '/api/artifacts/{id}',
             path: {
@@ -126,6 +76,7 @@ export class ArtifactService {
             },
             errors: {
                 400: `Bad Request`,
+                401: `Unauthorized`,
                 404: `Not Found`,
             },
         });
@@ -137,11 +88,11 @@ export class ArtifactService {
      * @returns Artifact OK
      * @throws ApiError
      */
-    public static patchArtifact(
+    public  patchArtifact(
         id: string,
         requestBody: Artifact,
     ): CancelablePromise<Artifact> {
-        return __request(OpenAPI, {
+        return __request(this.openApiOverride, {
             method: 'PATCH',
             url: '/api/artifacts/{id}',
             path: {
@@ -151,6 +102,63 @@ export class ArtifactService {
             mediaType: 'application/json',
             errors: {
                 400: `Bad Request`,
+                401: `Unauthorized`,
+                404: `Not Found`,
+            },
+        });
+    }
+
+    /**
+     * Get Artifact
+     * Returns a Artifact collection
+     * @returns Artifact OK
+     * @throws ApiError
+     */
+    public  findArtifacts(): CancelablePromise<Array<Artifact>> {
+        return __request(this.openApiOverride, {
+            method: 'GET',
+            url: '/api/artifacts/',
+            errors: {
+                400: `Bad Request`,
+                401: `Unauthorized`,
+                404: `Not Found`,
+            },
+        });
+    }
+
+    /**
+     * Create Artifact
+     * @param requestBody Created Artifact object
+     * @returns Artifact successful operation
+     * @throws ApiError
+     */
+    public  postArtifact(
+        requestBody: Artifact,
+    ): CancelablePromise<Artifact> {
+        return __request(this.openApiOverride, {
+            method: 'POST',
+            url: '/api/artifacts/',
+            body: requestBody,
+            mediaType: 'application/json',
+            errors: {
+                400: `Bad Request`,
+                401: `Unauthorized`,
+                404: `Not Found`,
+            },
+        });
+    }
+
+    /**
+     * @returns Artifact OK
+     * @throws ApiError
+     */
+    public  headArtifact(): CancelablePromise<Artifact> {
+        return __request(this.openApiOverride, {
+            method: 'HEAD',
+            url: '/api/artifacts/',
+            errors: {
+                400: `Bad Request`,
+                401: `Unauthorized`,
                 404: `Not Found`,
             },
         });

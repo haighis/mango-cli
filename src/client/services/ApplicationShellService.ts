@@ -7,8 +7,9 @@ import type { Install } from '../models/Install';
 import type { CancelablePromise } from '../core/CancelablePromise';
 import { OpenAPI } from '../core/OpenAPI';
 import { request as __request } from '../core/request';
+import { BaseService } from './BaseService';
 
-export class ApplicationShellService {
+export class ApplicationShellService extends BaseService {
 
     /**
      * Get Application Shell
@@ -16,12 +17,13 @@ export class ApplicationShellService {
      * @returns ApplicationShell OK
      * @throws ApiError
      */
-    public static findApplicationShells(): CancelablePromise<Array<ApplicationShell>> {
-        return __request(OpenAPI, {
+    public  findApplicationShells(): CancelablePromise<Array<ApplicationShell>> {
+        return __request(this.openApiOverride, {
             method: 'GET',
             url: '/api/applicationshells/',
             errors: {
                 400: `Bad Request`,
+                401: `Unauthorized`,
                 404: `Not Found`,
             },
         });
@@ -33,16 +35,17 @@ export class ApplicationShellService {
      * @returns ApplicationShell successful operation
      * @throws ApiError
      */
-    public static postApplicationShell(
+    public  postApplicationShell(
         requestBody: ApplicationShell,
     ): CancelablePromise<ApplicationShell> {
-        return __request(OpenAPI, {
+        return __request(this.openApiOverride, {
             method: 'POST',
             url: '/api/applicationshells/',
             body: requestBody,
             mediaType: 'application/json',
             errors: {
                 400: `Bad Request`,
+                401: `Unauthorized`,
                 404: `Not Found`,
             },
         });
@@ -52,12 +55,13 @@ export class ApplicationShellService {
      * @returns ApplicationShell OK
      * @throws ApiError
      */
-    public static headApplicationShell(): CancelablePromise<ApplicationShell> {
-        return __request(OpenAPI, {
+    public  headApplicationShell(): CancelablePromise<ApplicationShell> {
+        return __request(this.openApiOverride, {
             method: 'HEAD',
             url: '/api/applicationshells/',
             errors: {
                 400: `Bad Request`,
+                401: `Unauthorized`,
                 404: `Not Found`,
             },
         });
@@ -70,10 +74,10 @@ export class ApplicationShellService {
      * @returns Install successful operation
      * @throws ApiError
      */
-    public static findById1(
+    public  findById7(
         id: string,
     ): CancelablePromise<Install> {
-        return __request(OpenAPI, {
+        return __request(this.openApiOverride, {
             method: 'GET',
             url: '/api/applicationshells/{id}',
             path: {
@@ -81,6 +85,7 @@ export class ApplicationShellService {
             },
             errors: {
                 400: `Invalid ID supplied`,
+                401: `Unauthorized`,
                 404: `ApplicationShell not found`,
             },
         });
@@ -92,11 +97,11 @@ export class ApplicationShellService {
      * @returns ApplicationShell OK
      * @throws ApiError
      */
-    public static updateApplicationShell(
+    public  updateApplicationShell(
         id: string,
         requestBody: ApplicationShell,
     ): CancelablePromise<ApplicationShell> {
-        return __request(OpenAPI, {
+        return __request(this.openApiOverride, {
             method: 'PUT',
             url: '/api/applicationshells/{id}',
             path: {
@@ -106,6 +111,7 @@ export class ApplicationShellService {
             mediaType: 'application/json',
             errors: {
                 400: `Bad Request`,
+                401: `Unauthorized`,
                 404: `Not Found`,
             },
         });
@@ -116,10 +122,10 @@ export class ApplicationShellService {
      * @returns string OK
      * @throws ApiError
      */
-    public static deleteApplicationShell(
+    public  deleteApplicationShell(
         id: string,
     ): CancelablePromise<string> {
-        return __request(OpenAPI, {
+        return __request(this.openApiOverride, {
             method: 'DELETE',
             url: '/api/applicationshells/{id}',
             path: {
@@ -127,6 +133,7 @@ export class ApplicationShellService {
             },
             errors: {
                 400: `Bad Request`,
+                401: `Unauthorized`,
                 404: `Not Found`,
             },
         });
@@ -138,11 +145,11 @@ export class ApplicationShellService {
      * @returns ApplicationShell OK
      * @throws ApiError
      */
-    public static patchApplicationShell(
+    public  patchApplicationShell(
         id: string,
         requestBody: ApplicationShell,
     ): CancelablePromise<ApplicationShell> {
-        return __request(OpenAPI, {
+        return __request(this.openApiOverride, {
             method: 'PATCH',
             url: '/api/applicationshells/{id}',
             path: {
@@ -152,6 +159,7 @@ export class ApplicationShellService {
             mediaType: 'application/json',
             errors: {
                 400: `Bad Request`,
+                401: `Unauthorized`,
                 404: `Not Found`,
             },
         });
