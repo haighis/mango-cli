@@ -4,6 +4,7 @@ import sequelizeConnection from '../config'
 interface ContextAttributes {
     id: number;
     context: string;  
+    loginApiServerUrl: string;
     apiServerUrl: string;
     apiGatewayAdminUrl: string;
     isDefaultContext: boolean;
@@ -15,6 +16,7 @@ interface ContextAttributes {
 class Context extends Model<ContextAttributes, ContextInput> implements ContextAttributes {
     public id!: number
     public context!: string
+    public loginApiServerUrl!: string
     public apiServerUrl!: string
     public apiGatewayAdminUrl!: string
     public isDefaultContext!: boolean
@@ -37,6 +39,10 @@ Context.init(
           type: DataTypes.STRING,
           allowNull: false
         },
+        loginApiServerUrl: {
+          type: DataTypes.STRING,
+        allowNull: false
+      },
         apiServerUrl: {
             type: DataTypes.STRING,
           allowNull: false

@@ -66,6 +66,7 @@ export default class Create extends Command {
           contexts.forEach(async item => {
             let testInput: ContextInput = { 
               context: item.context, 
+              loginApiServerUrl: item.loginApiServerUrl,
               apiGatewayAdminUrl: item.apiGatewayAdminUrl,
               apiServerUrl: item.apiServerUrl, 
               isDefaultContext: item.isDefaultContext 

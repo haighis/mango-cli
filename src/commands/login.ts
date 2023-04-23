@@ -1,41 +1,22 @@
-import {Args, Command, Flags} from '@oclif/core'
+import {Command} from '@oclif/core'
 import inquirer = require('inquirer')
 import AuthContext from '../AuthContext'
 import { AccountService, ShellType, ShellTypeService,   OpenAPI, OpenAPIConfig } from '../client'
-import Context, { ContextInput } from '../db/models/Context'
 import LoginSession from '../db/models/LoginSession'
-import { Global } from '../Global'
 
 export default class Login extends Command {
-  static description = 'Mango Platform User Login'
+  static description = 'Mango Platform Accouint Login'
 
   static examples = [
     '<%= config.bin %> <%= command.id %>',
   ]
 
-  static flags = {
-    // flag with a value (-n, --name=VALUE)
-    name: Flags.string({char: 'n', description: 'name to print'}),
-    // flag with no value (-f, --force)
-    force: Flags.boolean({char: 'f'}),
-  }
-
-  static args = {
-    file: Args.string({description: 'file to read'}),
-  }
-
   public async run(): Promise<void> {
     const {args, flags} = await this.parse(Login)
-    // let authConext = new AuthContext();
-    // let openApiConfig = authConext.buildOpenApiConfig();
-    // if(!openApiConfig) {
-    //   console.log(' some how we are here')
-    //   return;
-    // }
     // TODO figure out how to add anonymous service/route to kong
     // so we don't have to bypass agi gateway in order to authenticate
     const openApiConfig: OpenAPIConfig = {
-      BASE: 'http://localhost:7878',
+      BASE: 'http://localhost:7979',
       VERSION: '1.0',
       WITH_CREDENTIALS: false,
       CREDENTIALS: 'include',
@@ -44,8 +25,12 @@ export default class Login extends Command {
       PASSWORD: undefined,
       HEADERS: undefined,
       ENCODE_PATH: undefined,
-  };
-  
+    };
+    // let authConext = new AuthContext();
+    // let openApiConfig = await authConext.buildOpenApiConfig();
+    // if(!openApiConfig) {
+    //   return;
+    // }
     const questions = [
       {
         type: 'input',

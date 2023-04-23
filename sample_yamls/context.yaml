@@ -1,18 +1,20 @@
 ---
 kind: Context
+loginApiServerUrl: http://localhost:7878
 apiServerUrl: http://localhost:7878
 apiGatewayAdminUrl: http://localhost:8002
 context: dev
 isDefaultContext: false
 ---
 kind: Context
+loginApiServerUrl: http://localhost:7878
 apiServerUrl: http://localhost:8000
 apiGatewayAdminUrl: http://localhost:8002
 context: devkonga
 isDefaultContext: false
-
 ---
 kind: Context
+loginApiServerUrl: http://localhost:7878
 apiServerUrl: http://prod.mango.com
 apiGatewayAdminUrl: http://localhost:8002
 context: prod

@@ -101,7 +101,7 @@ export default class Get extends Command {
         break;
         case "Context": 
           apiServerResult = await Context.findAll() as ContextInput[];
-          uiTableColumns = {context: { header: 'Context'}, apiServerUrl: { header: 'API Server Url'}, defaultContext: { header: 'Is Default' } }      
+          uiTableColumns = {context: { header: 'Context'}, loginApiServerUrl: { header: 'Login API Server'}, apiServerUrl: { header: 'API Server'}, apiGatewayAdminUrl: { header: 'Kong Admin API Server'}, isDefaultContext: { header: 'Is Default' } }      
           break;
         case "ShellType":
           // only show active applications

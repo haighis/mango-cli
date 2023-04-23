@@ -102,13 +102,13 @@ export default class Configure extends Command {
           default: yesNoChoices[1],
           choices: yesNoChoices
         },
-        {
-          type: 'list',
-          name: 'overwriteCredential',
-          message: 'Would you like to regenerate API Gateway Credential for this Context?',
-          default: yesNoChoices[1],
-          choices: yesNoChoices
-        }
+        // {
+        //   type: 'list',
+        //   name: 'overwriteCredential',
+        //   message: 'Would you like to regenerate API Gateway Credential for this Context?',
+        //   default: yesNoChoices[1],
+        //   choices: yesNoChoices
+        // }
       ];
       let userContext = "";
       let userSecretKey = "";
@@ -138,30 +138,23 @@ export default class Configure extends Command {
         let kongOpenApiConfig = new OpenApiConfigBuilder().CreateOpenApiConfig(currentContext!.dataValues.apiGatewayAdminUrl);
         // get the user account from login session
         let loginSession = await LoginSession.findOne();
-        if(!loginSession!.dataValues) {
+        if(loginSession == null || !loginSession!.dataValues) {
           this.log(`Please login before continuing with mango-cli login`);
           return;
         }
+        let username = loginSession!.dataValues.username;
         // Check if the Credential exists in sqlite db thereby skipping creation
         // of 1) consumer, api key
         let existConsumerId = undefined;
         let existCredential = await Credential.findOne({where: { context: userContext }});
-        if(existCredential) {
+        //if(existCredential) {
           //console.log(' existCredential ', existCredential)
-          existConsumerId = existCredential!.consumerId;
+          //existConsumerId = existCredential!.consumerId;
           // Delete the consumer 
         //  let deleteConsumer = await new AuthContext().DeleteConsumer({ id: existConsumerId}, kongOpenApiConfig);
-        }
-        let username = loginSession!.dataValues.username;
-        // // Recreate consumer/credential or get existing credential and resuse
-        if(res.overwriteCredential == "Yes") {
-          //console.log(' in overwriteCredential is yes ', existConsumerId, ' res ', res)
-          // Delete existing credential
-          await Credential.destroy({where: {context: userContext}});
-          let deleteConsumer = await new AuthContext().DeleteConsumer({ id: existConsumerId!}, kongOpenApiConfig);
-          // Go to Kong to Create Consumer/User if it does not yet exist
-          let createUser: any = new AuthContext().CreateConsumer({ username: username }, kongOpenApiConfig)
-          .then(res => {
+        //} 
+        if(!existCredential) {
+          let createUser: any = new AuthContext().CreateConsumer({ username: username }, kongOpenApiConfig).then(res => {
             let consumerResponse = res as any;
             // Go to Kong to Create API Key
             //console.log(`resp ${consumerResponse.id}`);
@@ -172,34 +165,58 @@ export default class Configure extends Command {
               additionalInformation += `Secret Key saved for context ${userContext}, username: ${username} key: ${apiKeyResult.key}`;
               });
             });  
+        } else {
+          additionalInformation += `Context ${userContext} Credential: ${existCredential!.secretKey} `;
         }
-        if(res.overwriteCredential == "No") {
-          //console.log(' in overwriteCredential is no ', existConsumerId, ' res ', res)
-          // // Check if the consumer already exists in Kong Admin API, reuse token if it exists
-          let existConsumer = await new AuthContext().GetConsumer({ id: existConsumerId!}, kongOpenApiConfig) as any;
-          let existingApiKeyResult = await new AuthContext().GetApiKey({ username: username}, kongOpenApiConfig) as any;
-          let existingApiKey = existingApiKeyResult.data[0].key;
-          //console.log('existingApiKey ',existingApiKey)
-          if(existConsumer == "Not Found") {
-            //console.log('existConsumer in not found',existConsumer);
-          } else {
-            //console.log('existConsumer found',existConsumer);
-            await Context.update({ isDefaultContext: false }, {
-              where: {
-                isDefaultContext: true
-              }
-            });
-            await Credential.update(
-              {
-                secretKey: existingApiKey,
-              }, 
-              { 
-                where: { id: existConsumer.id}
-              }
-            );
-            additionalInformation += ` Secret Key saved for context ${userContext}, username: ${username} key: ${existingApiKey}`;
-          }
-        }
+        
+        // // Recreate consumer/credential or get existing credential and resuse
+        // if(res.overwriteCredential == "Yes") {
+        //   //console.log(' in overwriteCredential is yes ', existConsumerId, ' res ', res)
+        //   // Delete existing credential
+        //   await Credential.destroy({where: {context: userContext}});
+        //   let deleteConsumer = await new AuthContext().DeleteConsumer({ id: existConsumerId!}, kongOpenApiConfig);
+        //   // Go to Kong to Create Consumer/User if it does not yet exist
+        //   let createUser: any = new AuthContext().CreateConsumer({ username: username }, kongOpenApiConfig)
+        //   .then(res => {
+        //     let consumerResponse = res as any;
+        //     // Go to Kong to Create API Key
+        //     //console.log(`resp ${consumerResponse.id}`);
+        //     let createApiKey: any = new AuthContext().CreateApiKey({ username: username }, kongOpenApiConfig).then(async res2 => {          
+        //       let apiKeyResult = res2 as any;
+        //       // Create new cred/context entry
+        //       await Credential.create({secretKey: apiKeyResult.key, context: userContext, consumerId: consumerResponse.id});
+        //       additionalInformation += `Secret Key saved for context ${userContext}, username: ${username} key: ${apiKeyResult.key}`;
+        //       });
+        //     });  
+        // }
+        // if(res.overwriteCredential == "No") {
+        //   console.log(' in overwriteCredential is no ', existConsumerId, ' res ', res)
+        //   // // Check if the consumer already exists in Kong Admin API, reuse token if it exists
+        //   let existConsumer = await new AuthContext().GetConsumer({ id: existConsumerId!}, kongOpenApiConfig) as any;
+        //   console.log('existConsumer ',existConsumer)
+        //   if(existConsumer == "Not Found") {
+        //     // Setup user for first time
+        //     console.log('existConsumer in not found',existConsumer);
+        //   } else {
+        //     let existingApiKeyResult = await new AuthContext().GetApiKey({ username: username}, kongOpenApiConfig) as any;
+        //     let existingApiKey = existingApiKeyResult.data[0].key;
+        //     //console.log('existConsumer found',existConsumer);
+        //     await Context.update({ isDefaultContext: false }, {
+        //       where: {
+        //         isDefaultContext: true
+        //       }
+        //     });
+        //     await Credential.update(
+        //       {
+        //         secretKey: existingApiKey,
+        //       }, 
+        //       { 
+        //         where: { id: existConsumer.id}
+        //       }
+        //     );
+        //     additionalInformation += ` Secret Key saved for context ${userContext}, username: ${username} key: ${existingApiKey}`;
+        //   }
+        // }
         
         // Go to Kong to Create Consumer/User if it does not yet exist
         //let username = loginSession!.dataValues.username;

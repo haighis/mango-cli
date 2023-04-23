@@ -69,11 +69,13 @@ npm install pm2 - pm2 will be installed locally. It will then typically be found
 
 
 <!-- toc -->
-* [Mango CLI](#mango-cli)
-* [Step 1 - Register, Login, Define Contexts](#step-1---register-login-define-contexts)
-* [Step 2 - Set Credentials for Contexts](#step-2---set-credentials-for-contexts)
+* [Mango Platform CLI](#mango-platform-cli)
+* [Step 1 - Initialize Mango Platform API Server & Mango  Platform CLI](#step-1---initialize-mango-platform-api-server--mango--platform-cli)
+* [Step 2 - Register, Login](#step-2---register-login)
+* [Step 3 - Set Credentials for Contexts](#step-3---set-credentials-for-contexts)
+* [Quick setup for Development](#quick-setup-for-development)
 * [TODO](#todo)
-* [Getting Started with Mango Platform CLI](#getting-started-with-mango-platform-cli)
+* [npm library troubleshooting](#npm-library-troubleshooting)
 * [Usage](#usage)
 * [Commands](#commands)
 <!-- tocstop -->
@@ -84,7 +86,7 @@ $ npm install -g mango-platform-cli
 $ mango-cli COMMAND
 running command...
 $ mango-cli (--version)
-mango-platform-cli/0.0.5 darwin-x64 node-v16.13.0
+mango-platform-cli/0.0.6 darwin-x64 node-v16.13.0
 $ mango-cli --help [COMMAND]
 USAGE
   $ mango-cli COMMAND
@@ -94,11 +96,8 @@ USAGE
 # Commands
 <!-- commands -->
 * [`mango-cli configure`](#mango-cli-configure)
-* [`mango-cli configuredev`](#mango-cli-configuredev)
 * [`mango-cli create [KIND]`](#mango-cli-create-kind)
 * [`mango-cli get [KIND]`](#mango-cli-get-kind)
-* [`mango-cli hello PERSON`](#mango-cli-hello-person)
-* [`mango-cli hello world`](#mango-cli-hello-world)
 * [`mango-cli help [COMMANDS]`](#mango-cli-help-commands)
 * [`mango-cli login [FILE]`](#mango-cli-login-file)
 * [`mango-cli plugins`](#mango-cli-plugins)
@@ -115,7 +114,7 @@ USAGE
 
 ## `mango-cli configure`
 
-Configure Mango Platform Settings
+Configure Mango Platform Configure
 
 ```
 USAGE
@@ -126,34 +125,13 @@ FLAGS
   -s, --simple
 
 DESCRIPTION
-  Configure Mango Platform Settings
+  Configure Mango Platform Configure
 
 EXAMPLES
   $ mango-cli configure
 ```
 
-_See code: [dist/commands/configure.ts](https://github.com/haighis/mango-cli/blob/v0.0.5/dist/commands/configure.ts)_
-
-## `mango-cli configuredev`
-
-Configure Mango Platform Settings
-
-```
-USAGE
-  $ mango-cli configuredev [-d <value>]
-
-FLAGS
-  -d, --default_data=<value>  Insert default data to Mango CLI database. VOLATILE operation. This will delete your
-                              existing configuration and insert a development context.
-
-DESCRIPTION
-  Configure Mango Platform Settings
-
-EXAMPLES
-  $ mango-cli configuredev
-```
-
-_See code: [dist/commands/configuredev.ts](https://github.com/haighis/mango-cli/blob/v0.0.5/dist/commands/configuredev.ts)_
+_See code: [dist/commands/configure.ts](https://github.com/haighis/mango-cli/blob/v0.0.6/dist/commands/configure.ts)_
 
 ## `mango-cli create [KIND]`
 
@@ -176,7 +154,7 @@ EXAMPLES
   $ mango-cli create -f path/file.yaml
 ```
 
-_See code: [dist/commands/create.ts](https://github.com/haighis/mango-cli/blob/v0.0.5/dist/commands/create.ts)_
+_See code: [dist/commands/create.ts](https://github.com/haighis/mango-cli/blob/v0.0.6/dist/commands/create.ts)_
 
 ## `mango-cli get [KIND]`
 
@@ -213,47 +191,7 @@ EXAMPLES
   $ mango-cli get applications
 ```
 
-_See code: [dist/commands/get.ts](https://github.com/haighis/mango-cli/blob/v0.0.5/dist/commands/get.ts)_
-
-## `mango-cli hello PERSON`
-
-Say hello
-
-```
-USAGE
-  $ mango-cli hello PERSON -f <value>
-
-ARGUMENTS
-  PERSON  Person to say hello to
-
-FLAGS
-  -f, --from=<value>  (required) Who is saying hello
-
-DESCRIPTION
-  Say hello
-
-EXAMPLES
-  $ oex hello friend --from oclif
-  hello friend from oclif! (./src/commands/hello/index.ts)
-```
-
-_See code: [dist/commands/hello/index.ts](https://github.com/haighis/mango-cli/blob/v0.0.5/dist/commands/hello/index.ts)_
-
-## `mango-cli hello world`
-
-Say hello world
-
-```
-USAGE
-  $ mango-cli hello world
-
-DESCRIPTION
-  Say hello world
-
-EXAMPLES
-  $ mango-cli hello world
-  hello world! (./src/commands/hello/world.ts)
-```
+_See code: [dist/commands/get.ts](https://github.com/haighis/mango-cli/blob/v0.0.6/dist/commands/get.ts)_
 
 ## `mango-cli help [COMMANDS]`
 
@@ -297,7 +235,7 @@ EXAMPLES
   $ mango-cli login
 ```
 
-_See code: [dist/commands/login.ts](https://github.com/haighis/mango-cli/blob/v0.0.5/dist/commands/login.ts)_
+_See code: [dist/commands/login.ts](https://github.com/haighis/mango-cli/blob/v0.0.6/dist/commands/login.ts)_
 
 ## `mango-cli plugins`
 
@@ -547,7 +485,7 @@ EXAMPLES
   $ mango-cli register
 ```
 
-_See code: [dist/commands/register.ts](https://github.com/haighis/mango-cli/blob/v0.0.5/dist/commands/register.ts)_
+_See code: [dist/commands/register.ts](https://github.com/haighis/mango-cli/blob/v0.0.6/dist/commands/register.ts)_
 
 ## `mango-cli setup`
 
@@ -568,5 +506,5 @@ EXAMPLES
   $ mango-cli setup
 ```
 
-_See code: [dist/commands/setup.ts](https://github.com/haighis/mango-cli/blob/v0.0.5/dist/commands/setup.ts)_
+_See code: [dist/commands/setup.ts](https://github.com/haighis/mango-cli/blob/v0.0.6/dist/commands/setup.ts)_
 <!-- commandsstop -->
