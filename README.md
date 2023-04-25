@@ -24,11 +24,10 @@ which allows you to view the JS Client Model and Services.
 `mango-cli create Application --file application.yaml`
 
 # Getting Started
-
+A running Mango Platform API Server is required before proceeding to Step 1.
 ## Step 1 - Setup Mango Platform CLI
 `mango-cli setup --cli`
-
-## Create 
+## Create Contexts
 `mango-cli create Context -f sample_yamls/context.yaml`
 ## Step 2 - Register, Login
 `mango-cli register`
@@ -38,7 +37,7 @@ which allows you to view the JS Client Model and Services.
 ## Step 4 - Configure Context
 `mango-cli configure`
 
-Access & Create Mango Platform API Resources
+After running `mango-cli configure` you may now access & create Mango Platform API Resources
 
 
 ## Quick setup for Development
