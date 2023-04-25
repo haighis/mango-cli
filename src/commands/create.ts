@@ -32,15 +32,21 @@ export default class Create extends Command {
 
   public async run(): Promise<void> {
     const {args, flags} = await this.parse(Create)
-    let authConext = new AuthContext();
-    let openApiConfig = await authConext.buildOpenApiConfig();
-    if(openApiConfig == undefined) {
-      return;
-    }
+
     // Todo check for user session if the Kind is anything but Context
 
     let wellKnownKinds = Global.WellKnownKinds;
     let kind = args.kind;
+    let authConext = new AuthContext();
+    
+    let openApiConfig = undefined; 
+    if(kind != "Context") { //|| kind != "Credential" || kind = "Account"
+      openApiConfig = await authConext.buildOpenApiConfig();
+      if(openApiConfig == undefined) {
+        return;
+      }
+    }
+    
     let isValid = wellKnownKinds.indexOf(kind!) > -1;
     //let shellTypeId = flags.shell_type_id;
     // Validate args kind is a well known kind
@@ -80,14 +86,14 @@ export default class Create extends Command {
         // Get the shell_type_id flag
         //let appShell: ApplicationShell = doc as unknown as ApplicationShell;
         let appShell: ApplicationShell[] = doc as unknown as ApplicationShell[];
-        this.CreateApplicationShell(appShell, openApiConfig);
+        this.CreateApplicationShell(appShell, openApiConfig!);
         break;
       case "Install":
       case "ShellType":
         // Multiple creation support
         let shellTypes: ShellType[] = doc as unknown as ShellType[];
         //let appService: ApplicationService = new ApplicationService(openApiConfig);
-        let shellTypeService: ShellTypeService = new ShellTypeService(openApiConfig);
+        let shellTypeService: ShellTypeService = new ShellTypeService(openApiConfig!);
         shellTypes.forEach(async item => {
           await shellTypeService.postShellType(item);
         });

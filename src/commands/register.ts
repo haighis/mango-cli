@@ -13,22 +13,11 @@ export default class Register extends Command {
 
   public async run(): Promise<void> {
     const {args, flags} = await this.parse(Register)
-    // let authConext = new AuthContext();
-    // let openApiConfig = await authConext.buildOpenApiConfig();
-    // if(!openApiConfig) {
-    //   return;
-    // }
-    const openApiConfig: OpenAPIConfig = {
-      BASE: 'http://localhost:7979',
-      VERSION: '1.0',
-      WITH_CREDENTIALS: false,
-      CREDENTIALS: 'include',
-      TOKEN: undefined,
-      USERNAME: undefined,
-      PASSWORD: undefined,
-      HEADERS: undefined,
-      ENCODE_PATH: undefined,
-  };
+    let authConext = new AuthContext();
+    let openApiConfig = await authConext.buildAccountApiServerOpenApiConfig();
+    if(!openApiConfig) {
+      return;
+    }
     const questions = [
       {
         type: 'input',
