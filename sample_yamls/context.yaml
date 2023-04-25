@@ -7,11 +7,11 @@ context: dev
 isDefaultContext: false
 ---
 kind: Context
-loginApiServerUrl: http://localhost:7878
+loginApiServerUrl: http://localhost:7979
 apiServerUrl: http://localhost:8000
 apiGatewayAdminUrl: http://localhost:8002
 context: devkonga
-isDefaultContext: false
+isDefaultContext: true
 ---
 kind: Context
 loginApiServerUrl: http://localhost:7878

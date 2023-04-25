@@ -99,6 +99,23 @@ class AuthContext {
         });
     }
 
+    public async buildAccountApiServerOpenApiConfig() : Promise<OpenAPIConfig | undefined> {
+        let defaultContext = await Context.findOne({ where: { isDefaultContext: true}});
+        //console.log('buildAccountApiServerOpenApiConfig ', defaultContext)
+        const openApiConfig: OpenAPIConfig = {
+            BASE: defaultContext!.loginApiServerUrl,
+            VERSION: '1.0',
+            WITH_CREDENTIALS: false,
+            CREDENTIALS: 'include',
+            TOKEN: undefined,
+            USERNAME: undefined,
+            PASSWORD: undefined,
+            HEADERS: undefined,
+            ENCODE_PATH: undefined,
+        };
+        return openApiConfig;
+    }
+
     public async buildOpenApiConfig() : Promise<OpenAPIConfig | undefined> {
         let defaultContext = await Context.findOne({ where: { isDefaultContext: true}});
         //console.log('all context ', defaultContext)
@@ -116,7 +133,6 @@ class AuthContext {
             }
         }
         if(defaultContext.dataValues.context != "development") {
-            console.log('defaultContext!.apiServerUrl ', defaultContext!.apiServerUrl)
             let headers: Record<string,string> = { 'x-api-key': defaultCredentials!.secretKey }; 
             const openApiConfig: OpenAPIConfig = {
                 BASE: defaultContext!.apiServerUrl,

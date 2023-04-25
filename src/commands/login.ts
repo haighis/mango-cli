@@ -2,6 +2,7 @@ import {Command} from '@oclif/core'
 import inquirer = require('inquirer')
 import AuthContext from '../AuthContext'
 import { AccountService, ShellType, ShellTypeService,   OpenAPI, OpenAPIConfig } from '../client'
+import Context from '../db/models/Context'
 import LoginSession from '../db/models/LoginSession'
 
 export default class Login extends Command {
@@ -15,22 +16,12 @@ export default class Login extends Command {
     const {args, flags} = await this.parse(Login)
     // TODO figure out how to add anonymous service/route to kong
     // so we don't have to bypass agi gateway in order to authenticate
-    const openApiConfig: OpenAPIConfig = {
-      BASE: 'http://localhost:7979',
-      VERSION: '1.0',
-      WITH_CREDENTIALS: false,
-      CREDENTIALS: 'include',
-      TOKEN: undefined,
-      USERNAME: undefined,
-      PASSWORD: undefined,
-      HEADERS: undefined,
-      ENCODE_PATH: undefined,
-    };
-    // let authConext = new AuthContext();
-    // let openApiConfig = await authConext.buildOpenApiConfig();
-    // if(!openApiConfig) {
-    //   return;
-    // }
+    
+    let authConext = new AuthContext();
+    let openApiConfig = await authConext.buildAccountApiServerOpenApiConfig();
+    if(!openApiConfig) {
+      return;
+    }
     const questions = [
       {
         type: 'input',

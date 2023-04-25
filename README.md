@@ -23,15 +23,32 @@ which allows you to view the JS Client Model and Services.
 `mango-cli get Application` 
 `mango-cli create Application --file application.yaml`
 
-# Step 1 - Initialize Mango Platform API Server & Mango  Platform CLI
-`mango-cli setup`
-# Step 2 - Register, Login
+# Getting Started
+
+## Step 1 - Setup Mango Platform CLI
+`mango-cli setup --cli`
+
+## Create 
+`mango-cli create Context -f sample_yamls/context.yaml`
+## Step 2 - Register, Login
 `mango-cli register`
 `mango-cli login`
-# Step 3 - Set Credentials for Contexts
+## Step 3 - Setup Mango Platform API Server
+`mango-cli setup --api`
+## Step 4 - Configure Context
 `mango-cli configure`
-# Quick setup for Development
-`mango-cli configure --simple `
+
+Access & Create Mango Platform API Resources
+
+
+## Quick setup for Development
+```
+mango-cli setup --cli 
+curl --location --request POST 'http://localhost:7878/api/setup/' \
+--header 'Content-Type: application/json' 
+
+mango-cli configure --simple
+```
 ## Supplying Flags
 `./bin/run create Application --file application.yaml`
 ## Create Context
@@ -41,7 +58,6 @@ which allows you to view the JS Client Model and Services.
 # TODO
 - cli create application_shell command with code generation for angular using a basic foundation that is the default foundation in mango that allows an application shell to load a single application.
 - cli create application_shell command with code generation for angular using a foundation_id that gets the foundation template
-- enable mango configure to call setup Mango Api Server Java Application
 
 # npm library troubleshooting
 Global libraries
@@ -61,12 +77,6 @@ When installing use -g option to install globally
 npm install -g pm2 - pm2 will be installed globally. It will then typically be found in /usr/local/lib/node_modules (Use npm root -g to check where.)
 
 npm install pm2 - pm2 will be installed locally. It will then typically be found in the local directory in /node_modules
-
-
-
-
-
-
 
 <!-- toc -->
 * [Mango Platform CLI](#mango-platform-cli)
